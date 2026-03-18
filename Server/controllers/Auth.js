@@ -65,3 +65,87 @@ exports.sendOTP = async (req, res) => {
         })
     }
 }
+
+exports.signup = async (req, res) => {
+    try {
+        const {firstName, lastName, email, password, confirmPassword, accountType, otp} = req.body;
+        if(!firstName || !lastName || !email ||!password || !confirmPassword || !accountType || !otp) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required!",
+            })
+        }
+
+        if(password != confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: 'Password and ConfirmPassword Value does not match, please try again',
+            });
+        }
+
+        // check user already exist
+        const existinguser = await User.findOne({email});
+        if(existinguser) {
+            return res.status(409).json({
+                success: false,
+                message: 'Email Already Registered!',
+            });
+        }
+
+        // do otp validation
+        // const existingOTP = await OTP.findOne({ email, otp });
+        // if(!existingOTP) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: 'OTP is Invalid'
+        //     });
+        // }
+        const recentOTP = await OTP.findOne({ email }).sort({ createdAt: -1 });
+
+        if(!recentOTP || recentOTP.otp != otp) {
+            return res.status(400).json({
+                success: false,
+                message: 'OTP is invalid!',
+            })
+        }
+
+        // it means otp is correct we create entry of user in database
+
+        // encrypt password
+        const hashedPassword= await bcrypt.hash(password, 10);
+
+        // create entry in DB
+        const profile = await Profile.create({
+            gender: null, 
+            dateOfBirth: null,
+            aboutDetails: null,
+            contactNumber: null,
+        });
+
+        const user = await User.create({
+            firstName,
+            lastName,
+            email,
+            password:hashedPassword,
+            accountType,
+            additionalDetails: profile._id,
+            courses: [],
+            courseProgress: [],
+            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`
+        });
+        const userObj = user.toObject();
+        delete userObj.password;
+        return res.status(201).json({
+            success: true,
+            message: 'User is registered successfully!',
+            user: userObj,
+        });
+    }catch(err) {
+        console.log(`Error while sign up: ${err}`);
+        
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error while signing up'
+        })
+    }
+}

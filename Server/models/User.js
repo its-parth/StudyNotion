@@ -44,9 +44,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    urlToken: {
-        type: String,
-    },
+    // urlToken: {
+    //     type: String,
+    // },
     resetPasswordExpired: {
         type: Date,
     },
@@ -58,7 +58,8 @@ const userSchema = new mongoose.Schema({
     ],
     additionalDetails: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Profile'
+        ref: 'Profile',
+        required: true,
     }
 },
     { timestamps: true }
