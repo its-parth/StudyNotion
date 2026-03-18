@@ -149,3 +149,68 @@ exports.signup = async (req, res) => {
         })
     }
 }
+
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if(!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required!',
+            })
+        }
+
+        // is user exist or not
+        const existingUser = await User.findOne({email});
+        if(!existingUser) {
+            return res.status(400).json({
+                success: false,
+                message: 'User is not registered!',
+            })
+        }
+
+        // check both password
+        const passEqual = await bcrypt.compare(password, existingUser.password);
+
+        if(!passEqual) {
+            return res.status(400).json({
+                success: false,
+                message: 'Password is Incorrect!'
+            })
+        }
+
+        // password matched generate token
+        const payload = {
+            email: existingUser.email,
+            id: existingUser._id,
+            accountType: existingUser.accountType,
+        }
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+            expiresIn: '2h',
+        });
+
+        existingUser.token = token;
+        existingUser.password = undefined;
+
+        // create cookie and send response 
+        const options = {
+            expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+        }
+
+        return res.status(200).cookie("token", token, options).json({
+            success: true,
+            token, user: existingUser,
+            message: 'User Logged In Successfully!',
+        })
+    }catch(err) {
+        console.log(`Error while loggin in: ${err}`);
+        return res.status(500).json({
+            success: false,
+            message: 'Error While Loggin In!',
+        })
+    }
+}
+
+// forgot password
