@@ -213,4 +213,58 @@ exports.login = async (req, res) => {
     }
 }
 
-// forgot password
+// change password
+exports.changePassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword, confirmPassword } = req.body;
+    
+        const email = req.user.email;
+        if(!email) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email Not Found!',
+            })
+        }
+
+        if(!oldPassword || !newPassword || !confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: 'All Fields Required',
+            })
+        }
+        
+        if(newPassword !== confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: 'Passwords are not matching!',
+            })
+        }
+
+        const user = await User.findOne({email});
+        
+        if(!await bcrypt.compare(oldPassword, user.password)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid Old Password',
+            })
+        }
+
+        // password matched so update pw in db
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await User.findByIdAndUpdate(user._id, 
+            {$set: {password: hashedPassword}},
+        );
+
+        return res.status(200).json({
+            success: true, 
+            message: 'Password Updated Successfully',
+        })
+    }catch(err) {
+        console.log(`Error while changing password : ${err}`);
+        
+        return res.status(500).json({
+            success: false,
+            message: 'Error While Changing Password!',
+        })
+    }
+}
