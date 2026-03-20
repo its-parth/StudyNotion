@@ -44,9 +44,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // urlToken: {
-    //     type: String,
-    // },
+    urlToken: {
+        type: String,
+    },
     resetPasswordExpired: {
         type: Date,
     },
