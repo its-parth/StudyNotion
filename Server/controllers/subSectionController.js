@@ -149,6 +149,57 @@ exports.updateSubSection = async (req, res) => {
 exports.deleteSubSection = async (req, res) => {
     try {
 
+        // todo delete cloudinary video and also learn about transactions and centralized error handling
+        const { subSectionId, sectionId } = req.body;
+        if(!subSectionId || !sectionId) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required!',
+            })
+        }
+        if(!mongoose.Types.ObjectId.isValid(subSectionId)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid SubSection Id'
+            });
+        }
+        if(!mongoose.Types.ObjectId.isValid(sectionId)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid Section Id'
+            });
+        }
+        
+        const subSection = await SubSection.findByIdAndDelete(subSectionId);
+        if(!subSection) {
+            return res.status(404).json({
+                success: false,
+                message: 'Sub Section not found!',
+            });
+        }
+
+        // remove sub section from section
+        const updatedSection = await Section.findByIdAndUpdate(sectionId, {
+            $pull: {
+                subSections: subSectionId
+            }
+        },
+            {new: true}
+        );
+
+        if(!updatedSection) {
+            return res.status(404).json({
+                success: false,
+                message: 'Section not found!',
+            })
+        }
+
+
+        return res.status(200).json({
+            success: true,
+            message: 'Sub section deleted successfully',
+            section: updatedSection
+        })
     }catch(err) {
         console.log('Error in deleting sub section: ',err);
         
