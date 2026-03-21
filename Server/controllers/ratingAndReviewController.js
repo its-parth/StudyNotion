@@ -140,3 +140,50 @@ exports.getAverageRating = async (req, res) => {
     }
 }
 
+
+exports.getAllRatingAndReview = async (req, res) => {
+    try {
+        const { page = 1, limit = 10 } = req.query;
+
+        const pageNum = Number(page);
+        const limitNum = Number(limit);
+
+        if(pageNum < 1 || limitNum < 1) {
+            return res.status(400).json({
+                success: false,
+                message: 'Page and limit must be greater than 0'
+            });
+        }
+
+        const allReviews = await RatingAndReview.find({})
+        .sort({ createdAt: -1 })
+        .skip((page -1 ) * limit)
+        .limit(Number(limit))
+        .populate({
+            path: 'user',
+            select: "firstName lastName email image",
+        })
+        .populate({
+            path: 'course',
+            select: 'courseName',
+        });
+
+        const totalReviews = await RatingAndReview.countDocuments();
+        const totalPages = Math.ceil(totalReviews / limitNum);
+
+        return res.status(200).json({
+            success: true,
+            message: 'All rating and reviews fetched successfully',
+            totalReviews,
+            currentPage: Number(page),
+            data: allReviews
+        });
+    }catch(err) {
+        console.log('Error in getting all rating and review: ', err);
+        
+        return res.status(500).json({
+            success: false,
+            message: 'Error in getting all rating and review'
+        });
+    }
+}
