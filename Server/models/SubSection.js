@@ -7,7 +7,8 @@ const subSectionSchema = new mongoose.model({
         trim: true,
     },
     timeDuration: {
-        type: String,
+        type: Number,
+        requried: true,
     },
     description: {
         type: String,
