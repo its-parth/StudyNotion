@@ -3,7 +3,7 @@ const SubSection = require('../models/SubSection');
 const { uploadFileToCloudinary } = require('../utils/cloudinaryUpload');
 const mongoose = require('mongoose');
 
-const createSubSection = async (req, res) => {
+exports.createSubSection = async (req, res) => {
     try {
         const { title, description, sectionId } = req.body;
         const videoFile = req.files?.videoFile;
@@ -16,9 +16,9 @@ const createSubSection = async (req, res) => {
         }
 
         if(!mongoose.Types.ObjectId.isValid(sectionId)) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
-                message: 'Section not found'
+                message: 'Invalid section id'
             })
         }
 
@@ -26,7 +26,7 @@ const createSubSection = async (req, res) => {
         if(!section) {
             return res.status(400).json({
                 success: false,
-                message: 'Invalid section id',
+                message: 'Section not found',
             })
         }
        
@@ -71,28 +71,90 @@ const createSubSection = async (req, res) => {
     }
 }
 
-const updateSubSection = async (req, res) => {
-    try {
+exports.updateSubSection = async (req, res) => {
+    try {   
+        // todo if user upload new video delete prev video before uploading new one 
+        const { title, description, subSectionId } = req.body;
+        const videoFile = req.files?.videoFile;
+        if(!subSectionId) {
+            return res.status(400).json({
+                success: false,
+                message: "Sub Section id is required",
+            });
+        }
+
+        if(!mongoose.Types.ObjectId.isValid(subSectionId)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Sub section id is invalid'
+            })
+        }
+
+        const subSection = await SubSection.findById(subSectionId);
+        if(!subSection) {
+            return res.status(404).json({
+                success: false,
+                message: 'Sub Section not found',
+            })
+        }
+
+        const updatedData = {};
+        if(title) updatedData.title = title;
+        if(description) updatedData.description = description;
+
+        const section = await Section.findOne({
+            subSections: subSection._id,
+        });
+        if(!section) {
+            return res.status(404).json({
+                success: false,
+                message: 'Subsections Section Not found!',
+            })
+        }
+
+        if(videoFile) {
+            const uploadResult = await uploadFileToCloudinary(videoFile, `StudyNotion/Sections/${section._id}`);
+            if(!uploadResult) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error in uploading video file"
+                });
+            }
+            updatedData.videoUrl = uploadResult?.secure_url;
+            updatedData.timeDuration = uploadResult?.duration;
+        }
+
+        await SubSection.findByIdAndUpdate(subSectionId, updatedData);
+
+        const updatedSection = await Section.findOne(
+            {subSections: subSectionId}
+        ).populate('subSections');
+
+        return res.status(200).json({
+            success: true,
+            message: 'Sub section updated successfully!',
+            section: updatedSection
+        });
 
     }catch(err) {
-        console.log('Error in creating sub section: ',err);
+        console.log('Error in updating sub section: ',err);
         
         return res.status(500).json({
             success: false,
-            message: 'Error while creating sub section'
+            message: 'Error while updating sub section'
         });
     }
 }
 
-const deleteSubSection = async (req, res) => {
+exports.deleteSubSection = async (req, res) => {
     try {
 
     }catch(err) {
-        console.log('Error in creating sub section: ',err);
+        console.log('Error in deleting sub section: ',err);
         
         return res.status(500).json({
             success: false,
-            message: 'Error while creating sub section'
+            message: 'Error while deleting sub section'
         });
     }
 }
