@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
         default: true,
     },
     courses: [
-        {
+        { 
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Course',
         }

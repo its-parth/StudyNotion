@@ -150,7 +150,23 @@ exports.deleteAccount = async (req, res) => {
 
 exports.getUserAllDetails = async (req, res) => {
     try {
+        const user = await User.findById(req.user.id)
+        .select("-password")
+        .populate("additionalDetails")
+        .lean();
 
+        if(!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found',
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "User details fetched successfully",
+            user
+        });
     }catch(err) {
         console.log('Error in getting user all Details: ', err);
         return res.status(500).json({
@@ -162,6 +178,36 @@ exports.getUserAllDetails = async (req, res) => {
 
 exports.getEnrolledCourses = async (req, res) => {
     try {
+        const user = await User.findById(req.user.id)
+        .select("-password")
+        .populate({
+            path: "courses",
+            select: "courseName thumbnail courseContent",
+            populate: {
+                path: "courseContent",
+                select: "sectionName subSections",
+                populate: {
+                    path: "subSections",
+                    select: "title timeDuration"
+                }
+            }
+        })
+        .lean();
+
+        if(!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found!'
+            });
+        }
+
+        const courses = user.courses;
+
+        return res.status(200).json({
+            success: true,
+            message: 'Enrolled courses fetch successfully!',
+            data: courses,
+        });
 
     }catch(err) {
         console.log('Error in getting enrolled courses: ', err);
@@ -174,7 +220,37 @@ exports.getEnrolledCourses = async (req, res) => {
 
 exports.updateDisplayPicture = async (req, res) => {
     try {
+        // todo check file type
+        const displayPicture = req.files.displayPicture;
+        // find what is 1000 & 1000 what is the use of it and if it is width and height handle it properly also see crop: "fill"....
+        const image = await uploadFileToCloudinary(
+            displayPicture,
+            'StudyNotion',
+            1000,
+            1000
+        );
 
+        if(!image) {
+            return res.status(500).json({
+                success: false,
+                message: 'Error while uploading image to cloudinary'
+            });
+        }
+        
+        await User.findByIdAndUpdate(req.user.id,
+            { image: image.secure_url },
+            { new: true }
+        )
+        
+        const user = await User.findById(req.user.id)
+        .select("-password")
+        .lean();
+
+        return res.status(200).json({
+            success: true,
+            message: `Image Updated successfully`,
+            data: user,
+        });
     }catch(err) {
         console.log('Error in updating display picture: ', err);
         return res.status(500).json({
