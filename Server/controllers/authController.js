@@ -15,7 +15,9 @@ const generateOTP = (len = 6) => {
 
 const sendVerificationEmail = async (email, otp) => {
     try {
-        await sendMail(email, 'Verification Email From CodeXpertise', otpTemplate(otp));
+        await sendMail(email, 'Verification Email From CodeXpertise', otpTemplate(otp))
+        .then(() => console.log("Mail sent"))
+        .catch(err => console.log("Mail error:", err.message));
         console.log('Email Sent Successfully!');
         
     }catch(err) {

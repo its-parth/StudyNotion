@@ -70,6 +70,7 @@ exports.updateProfile = async (req, res) => {
 
 exports.deleteAccount = async (req, res) => {
     try {
+        // Todo explore corn jobs and see how to delete account not immediately we must delete it after some time like 5 days
         const user = await User.findById(req.user.id);
 
         if(!user) {
