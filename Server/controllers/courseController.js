@@ -129,7 +129,7 @@ exports.getCourseDetails = async (req, res) => {
                 path: 'subSection',
             }
         })
-        .exec();
+        .exec(); 
 
         if(!course) {
             return res.status(400).json({

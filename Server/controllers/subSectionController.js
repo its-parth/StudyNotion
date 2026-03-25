@@ -4,7 +4,7 @@ const { uploadFileToCloudinary } = require('../utils/cloudinaryUpload');
 const mongoose = require('mongoose');
 
 exports.createSubSection = async (req, res) => {
-    try {
+    try { 
         const { title, description, sectionId } = req.body;
         const videoFile = req.files?.videoFile;
 

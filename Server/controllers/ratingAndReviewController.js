@@ -116,7 +116,7 @@ exports.getAverageRating = async (req, res) => {
                     course: new mongoose.Types.ObjectId(courseId)
                 }
             },
-            {
+            { 
                 $group: {
                     _id: null,
                     averageRating: {$avg: "$rating"},
@@ -141,7 +141,7 @@ exports.getAverageRating = async (req, res) => {
 }
 
 
-exports.getAllRatingAndReview = async (req, res) => {
+exports.getAllRatingsAndReviews = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query;
 

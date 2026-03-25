@@ -1,7 +1,7 @@
 const Category = require('../models/Category');
 
 // crate category
-const createCategory = async (req, res) => {
+exports.createCategory = async (req, res) => {
     try {
         const {name, description} = req.body;
 
@@ -63,7 +63,7 @@ exports.getCategoryPageDetails = async (req, res) => {
         }
         const categoryDetails = await Category.findById(category)
         .populate('courses')
-        .exec();
+        .exec(); 
         
         if(!categoryDetails) {
             return res.status(400).json({

@@ -145,11 +145,13 @@ exports.verifyPayment = async (req, res) => {
         // todo try to get user id and course id from notes which we add while creating order get notes from response
         // todo currently we are using checkout razorpay and love babbar uses webhook test this then try with webhook
         // 5 enroll user in course
-        await User.findByIdAndUpdate(order.userId, {
+        const user = await User.findByIdAndUpdate(order.userId, {
             $addToSet: {
                 enrolledCourses: order.courseId
             }
-        });
+            },
+            {new: true}
+        );
 
         // 6 add user to course
         await Course.findByIdAndUpdate(order.courseId, {
@@ -158,8 +160,7 @@ exports.verifyPayment = async (req, res) => {
             }
         });
 
-        const user = await User.findById(order.userId);
-        sendMail(user.email, 'Course Enrollment Confirmation', courseEnrollmentEmail)
+        await sendMail(user.email, 'Course Enrollment Confirmation', courseEnrollmentEmail)
                 .then(() => console.log("Mail sent"))
                 .catch(err => console.log("Mail error:", err.message));
 

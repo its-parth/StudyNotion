@@ -112,7 +112,7 @@ exports.deleteSection = async (req,res) => {
         //         courseContent: sectionId,
         //     }
         // });
-
+ 
         await Course.updateMany(
             { courseContent: sectionId },
             {
