@@ -3,11 +3,9 @@ const { connectDB } = require('./config/database');
 const cookieparser = require('cookie-parser');
 const { cloudinaryConnect } = require('./config/cloudinary');
 const fileupload = require('express-fileupload');
-
 const userRoutes = require('./routes/userRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const courseRoutes = require('./routes/courseRoutes');
-
 const cors = require('cors');
 
 const app = express();
@@ -19,7 +17,7 @@ app.use(express.json());
 app.use(fileupload(
     {
         useTempFiles: true,
-        tempFileDir: '/tmp/'
+        tempFileDir: "/tmp/"
     }
 ));
 app.use(cookieparser());
@@ -28,13 +26,15 @@ app.use(
         origin: 'http://localhost:3000',
         credentials: true,
     })
-)
+);
+
+
 connectDB();
 cloudinaryConnect();
 
 
 // adding routes mapping
-app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/course', courseRoutes);
 app.use('/api/v1/profile', profileRoutes);
 

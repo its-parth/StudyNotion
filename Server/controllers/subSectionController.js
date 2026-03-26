@@ -7,11 +7,11 @@ exports.createSubSection = async (req, res) => {
     try { 
         const { title, description, sectionId } = req.body;
         const videoFile = req.files?.videoFile;
-
+        console.log("video File: ", videoFile)
         if(!title || !description || !videoFile || !sectionId) {
             return res.status(400).json({
                 success: false,
-                message: 'All fields are required!',
+                message: 'All fields are required99!',
             });
         }
 
@@ -53,7 +53,7 @@ exports.createSubSection = async (req, res) => {
                 subSections: subSection._id
             }
         },
-        {new: true}
+        {returnDocument: 'after'}
         ).populate('subSections');
 
         return res.status(200).json({
@@ -66,7 +66,7 @@ exports.createSubSection = async (req, res) => {
         
         return res.status(500).json({
             success: false,
-            message: 'Error while creating sub section'
+            message: 'Error while creating sub section 999'
         });
     }
 }
@@ -150,8 +150,8 @@ exports.deleteSubSection = async (req, res) => {
     try {
 
         // todo delete cloudinary video and also learn about transactions and centralized error handling
-        const { subSectionId, sectionId } = req.body;
-        if(!subSectionId || !sectionId) {
+        const { subSectionId } = req.body;
+        if(!subSectionId) {
             return res.status(400).json({
                 success: false,
                 message: 'All fields are required!',
@@ -163,12 +163,6 @@ exports.deleteSubSection = async (req, res) => {
                 message: 'Invalid SubSection Id'
             });
         }
-        if(!mongoose.Types.ObjectId.isValid(sectionId)) {
-            return res.status(400).json({
-                success: false,
-                message: 'Invalid Section Id'
-            });
-        }
         
         const subSection = await SubSection.findByIdAndDelete(subSectionId);
         if(!subSection) {
@@ -178,8 +172,12 @@ exports.deleteSubSection = async (req, res) => {
             });
         }
 
+        const section = await Section.findOne({
+            subSections: subSection._id,
+        });
+
         // remove sub section from section
-        const updatedSection = await Section.findByIdAndUpdate(sectionId, {
+        const updatedSection = await Section.findByIdAndUpdate(section._id, {
             $pull: {
                 subSections: subSectionId
             }

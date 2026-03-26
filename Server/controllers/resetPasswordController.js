@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const sendMail = require('../utils/mailSender');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+
 
 exports.resetPasswordToken = async (req, res) => {
     try {
@@ -50,6 +52,7 @@ exports.resetPasswordToken = async (req, res) => {
     }catch(err) {
         console.log(`Error in reset password token: ${err}`);
         
+        
         return res.status(500).json({
             succes: false,
             message: 'Error while generate reset password token!'
@@ -79,7 +82,12 @@ exports.resetPassword = async (req, res) => {
         .update(urlToken)
         .digest("hex");
 
-        const user = await User.findOne({urlToken:hashedToken});
+        const user = await User.findOne({
+            urlToken:hashedToken,
+            resetPasswordExpired: {
+                $gt: Date.now()
+            }
+        });
 
         if(!user) {
             return res.status(401).json({

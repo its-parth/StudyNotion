@@ -11,11 +11,11 @@ const OTPSchema = new mongoose.Schema({
         required: true,
     },
     createdAt: {
-        tpye: Date,
+        type: Date,
         default: Date.now,
         expires: 300
     },
-    // add attempts limit logic
+    // todo add attempts limit logic
     attempts: {
         type: Number, 
         default: 0

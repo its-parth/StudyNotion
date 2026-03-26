@@ -1,9 +1,9 @@
-const { cloudinary } = require('../config/cloudinary');
+const cloudinary = require('cloudinary').v2;
 
 exports.uploadFileToCloudinary = async (file, folder, height, quality) => {
     const options = {
         folder, 
-        resource_type: 'auto',
+        resource_type: "auto",
     };
     if(height) options.height = height;
     if(quality) options.quality = quality;
@@ -12,7 +12,7 @@ exports.uploadFileToCloudinary = async (file, folder, height, quality) => {
         const result = await cloudinary.uploader.upload(file.tempFilePath, options);
         return result;
     } catch (error) {
-        console.error("Cloudinary upload error:", error);
+        console.error("Cloudinary upload error99:", error);
         throw error;
     }
 }

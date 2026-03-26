@@ -1,5 +1,6 @@
 const Course = require('../models/Course');
 const Section = require('../models/Section');
+const mongoose = require('mongoose');
 // create section
 exports.createSection = async (req, res) => {
     try {
@@ -74,8 +75,9 @@ exports.updateSection = async (req, res) => {
 // delete section
 exports.deleteSection = async (req,res) => {
     try {
-        const { sectionId } = req.params;
 
+        const { sectionId } = req.params;
+        console.log("sectionId: ",sectionId);
         if(!sectionId) {
             return res.status(400).json({
                 success: false,
@@ -89,6 +91,7 @@ exports.deleteSection = async (req,res) => {
                 message: 'Invalid section id format!',
             });
         }
+        const section = await Section.findById(sectionId);
 
         if(!section) {
             return res.status(404).json({
@@ -122,7 +125,6 @@ exports.deleteSection = async (req,res) => {
             }
         );
 
-        const section = await Section.findById(sectionId);
 
         await Section.findByIdAndDelete(sectionId);
 

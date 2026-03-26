@@ -1,14 +1,16 @@
 const Course = require('../models/Course');
 const Category = require('../models/Category');
 const {uploadFileToCloudinary} = require('../utils/cloudinaryUpload');
-
+const User = require('../models/User')
+// todo we add status like draft and published to model so modify controller which works on this field like if we fetch all courses it must show courses which are published not drafted one
+// todo write getFullCourseDetails, getInstructorCouses, deleteCourse
+// getCourseDetails -> preview before buying getFullCourseDetails -> actual content
 exports.createCourse = async (req, res) => {
     try {
-        const { courseName, courseDescription, whatWillYouLearn, price, tags, category } = req.body;
+        const { courseName, courseDescription, whatYouWillLearn, price, tags, category } = req.body;
         const { thumbnail } = req.files;
-
         // validation
-        if(!courseName || !courseDescription || !whatWillYouLearn || !price || !category || !thumbnail) {
+        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail) {
             return res.status(400).json({
                 success: false,
                 message: 'All fields are required!',
@@ -30,7 +32,7 @@ exports.createCourse = async (req, res) => {
             courseName,
             courseDescription,
             instructor:instructorId,
-            whatWillYouLearn,
+            whatYouWillLearn,
             courseContent:[],
             ratingAndReviews:[],
             price,
@@ -41,7 +43,7 @@ exports.createCourse = async (req, res) => {
         });
 
         await User.findByIdAndUpdate(
-            user._id,
+            instructorId,
             {
                 $push: {
                     courses: course._id,
@@ -65,13 +67,15 @@ exports.createCourse = async (req, res) => {
         })
     }catch(err) {
         console.log(`Error in course creation: ${err}`);
-    
+        console.log('i am here 99');
         return res.status(500).json({
             success: false,
             message: 'Server Error while creating course!'
         })
     }
 }
+
+// update course handler so that we can modify status from draft to publish and price thumbnail etc.
  
 // get all courses handler function
 exports.getAllCourses = async (req, res) => {
@@ -116,7 +120,7 @@ exports.getCourseDetails = async (req, res) => {
 
         const course = await Course.findById(courseId)
         .populate({
-            path: instructor,
+            path: 'instructor',
             populate: {
                 path: 'additionalDetails',
             }
@@ -125,8 +129,9 @@ exports.getCourseDetails = async (req, res) => {
         .populate('ratingAndReviews')
         .populate({
             path: 'courseContent',
-            poulate: {
-                path: 'subSection',
+            populate: {
+                path: 'subSections',
+                select: "-videoUrl"
             }
         })
         .exec(); 
@@ -137,7 +142,7 @@ exports.getCourseDetails = async (req, res) => {
                 message: 'Invalid course id',
             })
         }
-
+        // todo update this controller by seeing final code
         return res.status(200).json({
             success: true,
             message: 'Course Details Fetched Successfully!',

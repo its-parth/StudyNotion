@@ -1,4 +1,5 @@
 const Category = require('../models/Category');
+const Course = require('../models/Course');
 
 // crate category
 exports.createCategory = async (req, res) => {
@@ -54,14 +55,14 @@ exports.getAllCategories = async (req, res) => {
 // get category page details
 exports.getCategoryPageDetails = async (req, res) => {
     try {
-        const {category} = req.body;
-        if(!category) {
+        const {categoryId} = req.params;
+        if(!categoryId) {
             return res.status(400).json({
                 success: false,
                 message: 'Category id is required!',
             })
         }
-        const categoryDetails = await Category.findById(category)
+        const categoryDetails = await Category.findById(categoryId)
         .populate('courses')
         .exec(); 
         
@@ -73,7 +74,7 @@ exports.getCategoryPageDetails = async (req, res) => {
         }
 
         // get courses from diff category 
-        const differentCategories = await Cateogyr.find({_id: {$ne: category}}).populate('courses').exec();
+        const differentCategories = await Category.find({_id: {$ne: categoryId}}).populate('courses').exec();
 
         // get top 10 selling courses
         // Todo practice mongo db queries
@@ -100,11 +101,10 @@ exports.getCategoryPageDetails = async (req, res) => {
             }
         })
     }catch(err) {
-        console.log('Error in getting category page details: ',err);
-        
+        console.log('Error in getting category page details: ',err);        
         return res.status(500).json({
             success: false,
-            message: 'Error in getting category page details',
+            message: 'Error in getting category page details hie',
         })
     }
 }   

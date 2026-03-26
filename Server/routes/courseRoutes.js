@@ -5,11 +5,11 @@ const { getCourseDetails, createCourse, getAllCourses } = require('../controller
 
 const { getCategoryPageDetails, getAllCategories, createCategory } = require('../controllers/categoryController');
 
-const { createRatingAndReview, getAverageRating, getAllRatingsAndReviews } = require('../controllers/RatingAndReview');
+const { createRatingAndReview, getAverageRating, getAllRatingsAndReviews } = require('../controllers/ratingAndReviewController');
 
-const { createSection, updateSection, deleteSection } = require('../controllers/Section');
+const { createSection, updateSection, deleteSection } = require('../controllers/sectionController');
 
-const { createSubSection, updateSubSection, deleteSubSection } = require('../controllers/SubSection');
+const { createSubSection, updateSubSection, deleteSubSection } = require('../controllers/subSectionController');
 
 // importing middlewares
 const { isAuth, isInstructor, isStudent, isAdmin } = require('../middlewares/auth');
@@ -26,7 +26,7 @@ router.post("/addSection", isAuth, isInstructor, createSection)
 // // Update a Section
 router.post("/updateSection", isAuth, isInstructor, updateSection)
 // // Delete a Section
-router.post("/deleteSection", isAuth, isInstructor, deleteSection)
+router.post("/deleteSection/:sectionId", isAuth, isInstructor, deleteSection)
 // // Edit Sub Section
 router.post("/updateSubSection", isAuth, isInstructor, updateSubSection)
 // // Delete Sub Section
@@ -43,8 +43,7 @@ router.post("/getCourseDetails", getCourseDetails)
 // ********************************************************************************************************
 router.post("/createCategory", isAuth, isAdmin, createCategory)
 router.get("/showAllCategories",isAuth, isAdmin, getAllCategories)
-// doubt why?? 
-router.post("/categoryPageDetails", isAuth, isAdmin, getCategoryPageDetails)
+router.get("/categoryPageDetails/:categoryId", isAuth, isAdmin, getCategoryPageDetails)
 
 // ********************************************************************************************************
 //                                      Rating and Review
