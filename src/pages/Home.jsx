@@ -25,12 +25,12 @@ const Home = () => {
           With our online coding courses, you can learn at your own pace, from anywhere in the world, and get access to a wealth of resources, including hands-on projects, quizzes, and personalized feedback from instructors.
         </p>
         <div className='flex gap-7 mt-7'>
-          <CTAButton text="Learn More" variant="secondary" />
-          <CTAButton text="Book a Demo" variant="primary" />
+          <CTAButton text="Learn More" linkTo={"/signup"} variant="secondary" />
+          <CTAButton text="Book a Demo" linkTo={"/signup"} variant="primary" />
         </div>
 
         <div className='w-[80%] mt-10 mb-4 relative'>
-          {/* <div className='bg-white w-full h-full absolute top-4 left-4 z-0'></div> */}
+          <div className='bg-white w-full h-full absolute top-4 left-4 z-0'></div>
           {/* glow effect */}
           <div className='inset-0 absolute -top-7'>
             <div className='w-[80%] h-[40%] bg-blue-300 opacity-90 blur-3xl rounded-full mx-auto mt-10'></div>
@@ -43,9 +43,20 @@ const Home = () => {
         </div>
 
         {/* Code section 1 */}
-          <CodeSection heading={"Unlock you coding potential with our online courses."} description={"Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."} btn1Txt={"Try it Yourself"} btn2Txt={"LearnMore"}/>
+          <CodeSection heading={
+            [
+              { text: "Unlock your", highlight: false},
+              { text: "coding potential", highlight: true},
+              { text: "with our online courses.", highlight: false},
+            ]
+          } description={"Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."} ctabtn1={{text:"Try it Yourself",linkTo:"/signup"}} ctabtn2={{text:"Learn More",linkTo:"/signup"}} elipseColor={"blue-300"}/>
         {/* Code section 2 */}
-          <CodeSection reverse heading={"Start coding in seconds"} description={"Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."} btn1Txt={"Continue Lesson"} btn2Txt={"LearnMore"}/>
+          <CodeSection reverse heading={ 
+            [
+              { text: "Start", highlight: false},
+              { text: "coding in seconds", highlight: true}
+            ]
+          }  description={"Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."} ctabtn1={{text:"Continue Lesson",linkTo:"/signup"}} ctabtn2={{text:"Learn More",linkTo:"/signup"}} elipseColor={"[#fabf52]"}/>
 
       </div>
       {/* Section 2 */}
