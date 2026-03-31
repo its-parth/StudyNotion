@@ -4,9 +4,11 @@ import Home from './pages/Home'
 function App() {
 
   return (
-    <Routes>
-      <Route path='/' element={<Home />}/>
-    </Routes>
+    <div className='w-screen min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>
+      <Routes>
+        <Route path='/' element={<Home />}/>
+      </Routes>
+    </div>
   )
 }
 
