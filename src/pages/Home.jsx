@@ -1,10 +1,10 @@
 import React from 'react'
 import { FaArrowRight } from "react-icons/fa";
-import CTAButton from '../components/HomePage/CTAButton'
+import CTAButton from '../components/core/HomePage/CTAButton'
 import { Link } from 'react-router-dom';
 import Banner from '../assets/Images/banner.mp4'
-import HighlightText from '../components/HomePage/HighlightText';
-import CodeSection from '../components/HomePage/CodeSection';
+import HighlightText from '../components/core/HomePage/HighlightText';
+import CodeSection from '../components/core/HomePage/CodeSection';
 
 const Home = () => {
   return (
@@ -43,21 +43,28 @@ const Home = () => {
         </div>
 
         {/* Code section 1 */}
-          <CodeSection heading={
-            [
-              { text: "Unlock your", highlight: false},
-              { text: "coding potential", highlight: true},
-              { text: "with our online courses.", highlight: false},
-            ]
-          } description={"Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."} ctabtn1={{text:"Try it Yourself",linkTo:"/signup"}} ctabtn2={{text:"Learn More",linkTo:"/signup"}} elipseColor={"blue-300"}/>
+        <CodeSection 
+        codeBlock={`<!DOCTYPE html>\n <html lang="en">\n<head>\n<title>This is myPage</title>\n</head>\n<body>\n<h1><a href="/">Header</a></h1>\n<nav> <a href="/one">One</a> <a href="/two">Two</a> <a href="/three">Three</a>\n</nav>\n</body>`}
+        heading={
+          [
+            { text: "Unlock your", highlight: false },
+            { text: "coding potential", highlight: true },
+            { text: "with our online courses.", highlight: false },
+          ]
+        } description={"Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."} ctabtn1={{ text: "Try it Yourself", linkTo: "/signup" }} ctabtn2={{ text: "Learn More", linkTo: "/signup" }} ellipseColor={"blue"} />
         {/* Code section 2 */}
-          <CodeSection reverse heading={ 
-            [
-              { text: "Start", highlight: false},
-              { text: "coding in seconds", highlight: true}
-            ]
-          }  description={"Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."} ctabtn1={{text:"Continue Lesson",linkTo:"/signup"}} ctabtn2={{text:"Learn More",linkTo:"/signup"}} elipseColor={"[#fabf52]"}/>
+        <CodeSection reverse codeColor='#F5D242' 
+          codeBlock={`import React from "react";\n import CTAButton from "./Button";\nimport TypeAnimation from "react-type";\nimport { FaArrowRight } from "react-icons/fa";\n\nconst Home = () => {\nreturn (\n<div>Home</div>\n)\n}\nexport default Home;`}
+        heading={
+          [
+            { text: "Start", highlight: false },
+            { text: "coding in seconds", highlight: true }
+          ]
+        } description={"Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."} ctabtn1={{ text: "Continue Lesson", linkTo: "/signup" }} ctabtn2={{ text: "Learn More", linkTo: "/signup" }} ellipseColor={"yellow"} />
 
+
+        <div>
+        </div>
       </div>
       {/* Section 2 */}
 
