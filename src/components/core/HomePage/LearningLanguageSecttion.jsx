@@ -8,7 +8,7 @@ const LearningLanguageSecttion = () => {
     return (
         <div className='flex flex-col items-center pb-8'>
             <div className='mx-2 md:w-[60%]'>
-                <p className='text-4xl font-semibold text-center'>Your swiss knife for <HighlightText>learning any language</HighlightText></p>
+                <p className='text-3xl lg:text-4xl font-semibold text-center'>Your swiss knife for <HighlightText>learning any language</HighlightText></p>
                 <p className='text-richblack-700 text-center p-5'>Using spin making learning multiple languages easy. with 20+ languages realistic voice-over, progress tracking, custom schedule and more.</p>
             </div>
             {/* <div className='flex flex-col md:flex-row justify-center relative mx-2'>
@@ -19,17 +19,17 @@ const LearningLanguageSecttion = () => {
             <div className="relative md:h-95 lg:h-130 flex flex-col md:flex-row justify-center items-center w-full">
 
                 <img
-                    className="z-10 -mb-10 md:mb-0 md:absolute w-[75%] md:w-[38%] md:left-5"
+                    className="z-10 -mb-10 scale-95 md:scale-100 md:mb-0 md:absolute md:w-[38%] md:left-5"
                     src={KnowYourProgress}
                 />
 
                 <img
-                    className="z-20 md:absolute w-[80%] md:w-[42%]"
+                    className="z-20 md:absolute md:w-[42%]"
                     src={CompareWithOthers}
                 />
 
                 <img
-                    className="z-30 -mt-15 md:mt-0 md:absolute w-[80%] md:w-[42%] md:right-0"
+                    className="z-30 -mt-15 md:mt-0 md:absolute md:w-[42%] md:right-0"
                     src={PlanYourLessons}
                 />
 
