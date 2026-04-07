@@ -130,7 +130,7 @@
   --max-width-maxContentTab: 650px;
 }
 
-:root {
+html {
   overflow-x: hidden;
   margin: 0;
   padding: 0;

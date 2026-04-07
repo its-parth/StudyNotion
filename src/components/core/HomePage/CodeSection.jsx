@@ -1,6 +1,6 @@
 import { TypeAnimation } from "react-type-animation";
-import CTAButton from "./CTAButton"
-import HighlightText from "./HighlightText"
+import CTAButton from "../../common/CTAButton"
+import HighlightText from "../../common/HighlightText"
 
 const CodeSection = ({ heading, description, ctabtn1, ctabtn2, reverse, ellipseColor, codeColor="white", codeBlock}) => {
     const colorMap = {
@@ -49,11 +49,11 @@ const CodeSection = ({ heading, description, ctabtn1, ctabtn2, reverse, ellipseC
     };
 
     return (
-        <div className={`font-inter my-20 flex-col text-white flex md:flex-row w-[90%] justify-around ${reverse ? "md:flex-row-reverse flex-col-reverse" : ""} `}>
+        <div className={`font-inter my-5 lg:my-15 text-white flex flex-col gap-8 lg:gap-1 md:w-[90%] md:flex-row  justify-around ${reverse ? "md:flex-row-reverse" : ""} items-center`}>
             {/* Text Section */}
-            <div className="w-[45%] flex flex-col justify-around">
+            <div className="md:w-[45%] flex flex-col justify-around gap-5">
                 <div className="flex flex-col gap-4">
-                    <h3 className="text-4xl font-semibold flex flex-wrap gap-2">
+                    <h3 className="text-3xl lg:text-4xl font-semibold flex flex-wrap gap-2">
                         {
                             heading.map((item, index) => {
                                 return <span key={index}>
@@ -74,7 +74,7 @@ const CodeSection = ({ heading, description, ctabtn1, ctabtn2, reverse, ellipseC
                 </div>
             </div>
             {/* Code block */}
-            <div className="relative min-w-[45%] code-border p-2 font-semibold">
+            <div className="relative min-w-full md:min-w-[47%] code-border py-5 font-semibold">
                 {/* Gradient background */}
                 <div className={`absolute inset-0 bg-linear-to-r from-[#0E1A2D3D] to-[#111E3261]`}></div>
 
@@ -87,7 +87,7 @@ const CodeSection = ({ heading, description, ctabtn1, ctabtn2, reverse, ellipseC
                 <div className="absolute inset-0 backdrop-blur-2xl bg-white/1"></div>
 
                 {/* Content */}
-                <div className="relative flex gap-2 text-sm">
+                <div className="relative gap-2 text-xs md:text-sm w-full flex">
                     <div className="w-[8%] flex flex-col items-center text-richblack-400">
                         <p>1</p>
                         <p>2</p>

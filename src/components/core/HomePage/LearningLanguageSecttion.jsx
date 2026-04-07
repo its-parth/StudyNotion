@@ -2,8 +2,8 @@ import React from 'react'
 import KnowYourProgress from '../../../assets/Images/Know_your_progress.png'
 import PlanYourLessons from '../../../assets/Images/Plan_your_lessons.png'
 import CompareWithOthers from '../../../assets/Images/Compare_with_others.png'
-import HighlightText from './HighlightText'
-import CTAButton from './CTAButton'
+import HighlightText from '../../common/HighlightText'
+import CTAButton from '../../common/CTAButton'
 const LearningLanguageSecttion = () => {
     return (
         <div className='flex flex-col items-center pb-8'>

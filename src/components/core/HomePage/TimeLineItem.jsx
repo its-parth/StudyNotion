@@ -1,5 +1,4 @@
 import React from 'react'
-
 const TimeLineItem = ({icon, heading, description, isLast}) => {
   return (
     <div className='flex flex-row gap-5'>

@@ -11,3 +11,7 @@
     border-color: var(--color-richblack-100);
     border-style: dashed;
 }
+.selectedTab {
+    background-color: var(--color-richblack-900);
+    color: white;
+}

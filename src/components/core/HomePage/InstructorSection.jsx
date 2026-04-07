@@ -1,6 +1,6 @@
 import Instructor from '../../../assets/Images/Instructor.png'
-import CTAButton from './CTAButton'
-import HighlightText from './HighlightText'
+import CTAButton from '../../common/CTAButton'
+import HighlightText from '../../common/HighlightText'
 const InstructorSection = () => {
   return (
     <div className='w-11/12 flex px-10 items-center justify-around py-20'>
