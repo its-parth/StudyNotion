@@ -9,11 +9,11 @@ const TimeLineItem = ({icon, heading, description, isLast}) => {
                 <img className='w-6 h-6' src={icon} alt=""/>
             </div>
             {/* line */}
-            {!isLast && <div className='timeline-line my-3'></div>}
+            {!isLast && <div className='h-6 lg:h-10 w-0 border border-richblack-100 border-dashed my-2 lg:my-3'></div>}
         </div>
         {/* right side */}
         <div className='flex flex-col'>
-            <h3 className='font-bold text-lg'>{heading}</h3>
+            <h3 className='font-bold text-base lg:text-lg'>{heading}</h3>
             <p className='text-sm text-richblack-700'>{description}</p>
         </div>
     </div>

@@ -28,7 +28,7 @@ const TimeLineSection = () => {
         }
     ]
     return (
-        <div className='py-4 pl-2 pr-18'>
+        <div className='md:py-2 md:pr-2 lg:py-4 lg:pl-2 lg:pr-18'>
             {timeline.map((item, index) => (
                 <TimeLineItem
                     key={index}

@@ -77,44 +77,47 @@ const Home = () => {
         <ExploreMoreSection />
       </div>
       {/* Section 2 */}
-      {/* <div className='w-full bg-pure-greys-5 text-richblack-900 flex flex-col items-center'>
-        <div className='section2-content w-11/12 max-w-maxContent'>
-          <div>
-            <div className='h-80 bg-center bg-contain bg-repeat flex flex-row justify-center items-center gap-6 pt-10' style={{ backgroundImage: `url(${BGHome})` }}>
+      <div className='w-full bg-pure-greys-5 text-richblack-900'>
+        <div className='section2-content w-full flex flex-col items-center'>
+          <div className='w-full'>
+            <div className='w-full h-45 md:h-60 lg:h-80 bg-center bg-contain bg-repeat flex flex-col sm:flex-row justify-center items-center gap-6 lg:pt-10' style={{ backgroundImage: `url(${BGHome})` }}>
               <CTAButton variant='secondary' arrow text={"Explore Full Catalog"} linkTo={"/parth"}/>
               <CTAButton variant='primary' text={"Learn More"} linkTo={"/signup"}/>
             </div>
           </div>
-          <div className='py-15'>
-            <div className='flex flex-row'>
-              <div className='font-semibold text-4xl w-[50%] p-2'>Get the skills you need for a <HighlightText>job that is in demand.</HighlightText></div>
-              <div className='flex flex-col gap-9 w-[50%] p-2'>
+          <div className='py-15 w-11/12 max-w-maxContent'>
+            <div className='flex flex-col md:flex-row'>
+              <div className='font-semibold text-3xl lg:text-4xl md:w-[50%] p-2'>Get the skills you need for a <HighlightText>job that is in demand.</HighlightText></div>
+              <div className='flex flex-col gap-9 md:w-[50%] p-2'>
                 <p className='text-richblack-700'>The modern StudyNotion is the dictates its own terms. Today, to be a competitive specialist requires more than professional skills.</p>
                 <CTAButton variant='secondary' text="Learn More" linkTo={"/signup"}/>
               </div>
             </div>
-            <div className='flex gap-8 my-14 justify-between items-center'>
+            <div className='flex flex-col md:flex-row gap-4 lg:gap-8 my-5 lg:my-14 items-center justify-center'>
               <TimeLineSection />
-              <div className='relative flex items-center'>
-                  <div className='absolute blur-2xl w-full h-[50%] bg-linear-to-r from-[#9CECFB] via-[#65C7F7] to-[#0052D4]'></div>
-                  <img className='relative z-10 w-178 shadow-[20px_20px_0px_rgba(255,255,255,1)]' src={TimelineImage} alt="timeline_img" />
-                  <div className='z-20 w-[80%] absolute left-[10%] -bottom-15 bg-caribbeangreen-700 text-caribbeangreen-300 flex p-11 justify-between'>
-                    <div className='flex items-center gap-6'>
-                      <p className='text-white font-bold text-4xl'>10</p>
-                      <p className='text-sm uppercase w-30'>years experiences</p>
+              <div className='relative flex items-center px-2 py-4 md:py-0'>
+                  {/* blur glow background */}
+                  <div className='absolute blur-2xl w-[98%] h-[50%] bg-linear-to-r from-[#9CECFB] via-[#65C7F7] to-[#0052D4]'></div>
+                  <img className='z-10 md:mx-0 w-full max-w-140 md:max-w-178 shadow-[20px_20px_0px_rgba(255,255,255,1)]' src={TimelineImage} alt="timeline_img" />
+                  <div className='hidden z-20 w-[80%] absolute left-[10%] -bottom-10 bg-caribbeangreen-700 text-caribbeangreen-300 md:flex flex-row justify-evenly lg:justify-between p-6'>
+                    <div className='flex items-center gap-4 lg:gap-6'>
+                      <p className='text-white font-bold text-2xl lg:text-4xl'>10</p>
+                      <p className='text-xs lg:text-sm uppercase w-30'>years experiences</p>
                     </div>
-                    <div className='h-11 bg-caribbeangreen-500 w-0.5'></div>
-                    <div className='flex items-center gap-6'>
-                      <p className='text-white font-bold text-4xl'>250</p>
-                      <p className='text-sm uppercase w-30'>types of courses</p>
+                    <div className='hidden lg:block flex-1'>
+                      <div className='bg-caribbeangreen-500 h-full w-0.5 mx-auto'></div>
+                    </div>
+                    <div className='flex items-center gap-4 lg:gap-6'>
+                      <p className='text-white font-bold text-2xl lg:text-4xl'>250</p>
+                      <p className='text-xs lg:text-sm uppercase w-30'>types of courses</p>
                     </div>
                   </div>
               </div>
             </div>
           </div>
-          <LearningLanguageSecttion />
+          {/* <LearningLanguageSecttion /> */}
         </div>
-      </div> */}
+      </div>
       {/* Section 3 */}
       {/* <div className='flex flex-col items-center'>
         <InstructorSection />

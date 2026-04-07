@@ -38,6 +38,7 @@ const ExploreMoreSection = () => {
                                     <p className='text-richblack-400'>{card.description}</p>
                                 </div>
                                 <div className='flex flex-col text-richblack-300'>
+                                    {/* dashed line */}
                                     <div className='w-full h-0.5 bg-[repeating-linear-gradient(to_right,#6E727F_0px,#6E727F_5px,transparent_5px,transparent_10px)]'></div>
                                     <div className='flex justify-between py-4 px-6'>
                                         <p className='flex items-center gap-2'><IoMdPeople />
