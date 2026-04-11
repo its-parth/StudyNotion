@@ -35,7 +35,7 @@ exports.createCategory = async (req, res) => {
 // get all categories handler
 exports.getAllCategories = async (req, res) => {
     try {
-        const categories = await Category.find({});
+        const categories = await Category.find({}, {name:true, description: true});
 
         return res.status(200).json({
             success: true,

@@ -85,7 +85,7 @@ const Home = () => {
               <CTAButton variant='primary' text={"Learn More"} linkTo={"/signup"}/>
             </div>
           </div>
-          <div className='py-15 w-11/12 max-w-maxContent'>
+          <div className='py-8 md:py-15 w-11/12 max-w-maxContent'>
             <div className='flex flex-col md:flex-row'>
               <div className='font-semibold text-3xl lg:text-4xl md:w-[50%] p-2'>Get the skills you need for a <HighlightText>job that is in demand.</HighlightText></div>
               <div className='flex flex-col gap-9 md:w-[50%] p-2'>
@@ -115,14 +115,14 @@ const Home = () => {
               </div>
             </div>
           </div>
-          {/* <LearningLanguageSecttion /> */}
+          <LearningLanguageSecttion />
         </div>
       </div>
       {/* Section 3 */}
-      {/* <div className='flex flex-col items-center'>
+      <div className='w-11/12 max-w-maxContent flex flex-col items-center'>
         <InstructorSection />
-        <RatingAndReview />
-      </div> */}
+        {/* <RatingAndReview /> */}
+      </div>
       {/* Section 4 */}
       <Footer />
     </div>

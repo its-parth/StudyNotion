@@ -42,8 +42,8 @@ router.post("/getCourseDetails", getCourseDetails)
 //                                      Category routes (Only by Admin)
 // ********************************************************************************************************
 router.post("/createCategory", isAuth, isAdmin, createCategory)
-router.get("/showAllCategories",isAuth, isAdmin, getAllCategories)
-router.get("/categoryPageDetails/:categoryId", isAuth, isAdmin, getCategoryPageDetails)
+router.get("/showAllCategories", getAllCategories)
+router.get("/categoryPageDetails/:categoryId", getCategoryPageDetails)
 
 // ********************************************************************************************************
 //                                      Rating and Review
