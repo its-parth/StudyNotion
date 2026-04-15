@@ -39,13 +39,13 @@ const LoginForm = ({setIsLogin}) => {
         <form onSubmit={loginSubmitHandler} className='flex flex-col gap-2 text-sm'>
             <div className='flex flex-col gap-1'>
                 <label htmlFor="emailId">Email Address<span className='text-red-400'>*</span></label>
-                <input onChange={changeHandler} value={formData.email} required name='email' className='bg-(--richblack-800) w-full rounded-lg p-3' id="emailId" type="email" placeholder='Enter Email Address' />
+                <input onChange={changeHandler} value={formData.email} required name='email' className='bg-richblack-800 w-full rounded-lg p-3' id="emailId" type="email" placeholder='Enter Email Address' />
             </div>
             <div className='flex flex-col gap-1'>
                 <label htmlFor="emailPass">Password<span className='text-red-400'>*</span></label>
-                <input onChange={changeHandler} value={formData.password} required name='password' className='bg-(--richblack-800) w-full rounded-lg p-3' id='emailPass' type="password" placeholder='Enter Your Password' />
+                <input onChange={changeHandler} value={formData.password} required name='password' className='bg-richblack-800 w-full rounded-lg p-3' id='emailPass' type="password" placeholder='Enter Your Password' />
             </div>
-            <CTAButton className="mt-4" text={"Sign In"}/>
+            <CTAButton type={"submit"} variant='secondary' className="mt-4 flex items-center justify-center w-full" text={"Sign In"}/>
         </form>
     </div>
   )

@@ -6,10 +6,12 @@ import { useState } from 'react'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
+import Navbar from './components/common/Navbar'
 function App() {
 const [isLogin, setIsLogin] = useState(false);
   return (
     <div className='w-full min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>
+      <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/about' element={<AboutUs />} />

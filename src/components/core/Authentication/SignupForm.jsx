@@ -116,7 +116,7 @@ const SignupForm = ({setIsLogin}) => {
                 </div>
             </div>
             {/* <button className="create-account-btn">Create Account</button> */}
-            <CTAButton className="mt-3 w-full flex justify-center items-center" variant='secondary' text="Create Account" />
+            <CTAButton type={"submit"} className="mt-3 w-full flex justify-center items-center" variant='secondary' text="Create Account" />
         </form>
     </div>
   )

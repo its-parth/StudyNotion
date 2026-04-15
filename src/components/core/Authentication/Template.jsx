@@ -11,13 +11,13 @@ const Template = (props) => {
             <div className='max-w-lg p-2 lg:p-8 flex flex-col gap-6'>
                 <h2 className='text-3xl font-semibold'>{heading}</h2>
                 <div>
-                    <p className="desc1 text-xl text-(--richblack-200)">{description1}</p>
-                    <p className="desc2 text-lg text-(--blue-100) italic">{description2}</p>
+                    <p className="desc1 text-xl text-richblack-200">{description1}</p>
+                    <p className="desc2 text-lg text-blue-100 italic">{description2}</p>
                 </div>
                 {
                     type == 'signup' ?  <SignupForm setIsLogin={setIsLogin} /> : <LoginForm setIsLogin={setIsLogin} />
                 }
-                <div className='flex justify-between gap-2 items-center text-(--richblack-700)'>
+                <div className='flex justify-between gap-2 items-center text-richblack-700'>
                     <div className='border flex-1'></div>
                     <div>OR</div>
                     <div className='flex-1 border'></div>
