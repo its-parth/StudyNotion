@@ -10,6 +10,9 @@ import { ACCOUNT_TYPE } from '../../utils/constants'
 import ProfileDropdown from '../core/Authentication/ProfileDropdown'
 import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
 import { BsChevronDown } from "react-icons/bs"
+import { toast } from 'react-toastify'
+import { FaUserCircle } from "react-icons/fa";
+
 const Navbar = () => {
     const { token } = useSelector((state) => state.auth);
     const { user } = useSelector((state) => state.profile);
@@ -17,7 +20,7 @@ const Navbar = () => {
     const location = useLocation();
     const [subLinks, setSubLinks] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const userLoading = useSelector((state) => state.profile.loading)
     const matchRoute = (route) => {
         return matchPath({ path: route }, location.pathname);
     }
@@ -42,9 +45,6 @@ const Navbar = () => {
             setLoading(true);
             try {
                 console.log("categories api: ", categories.CATEGORIES_API);
-                await new Promise((resolve) =>
-                setTimeout(resolve, 5000)
-                );
                 const res = await apiConnector("GET", categories.CATEGORIES_API);
                 console.log("response: ", res);
                 setSubLinks(res?.data?.data);
@@ -60,7 +60,7 @@ const Navbar = () => {
     return (
         <div className='w-full border-b border-richblack-700 flex justify-center'>
             <div className='text-white bg-richblack-900 w-11/12 max-w-maxContent'>
-                <nav className='w-full flex justify-between items-center py-2'>
+                <nav className='w-full flex justify-between items-center py-3'>
                     <div>
                         <img className='w-40' src={logo} alt="logo" />
                     </div>
@@ -95,26 +95,37 @@ const Navbar = () => {
                             })
                         }
                     </div>
-                    <div className='hidden md:flex'>
-                        {user === null &&
+                    <div className='hidden md:flex md:min-w-30'>
+                        {!token &&
                             <div className='flex gap-3'>
                                 <CTAButton linkTo={"/login"} text={"Log in"} />
                                 <CTAButton linkTo={"/signup"} text={"Sign up"} />
                             </div>
                         }
-                        {user && user?.accountType == ACCOUNT_TYPE.STUDENT && (
-                            <div>
-                                <Link to={"/dashboard/cart"} className='relative'>
-                                    <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
-                                    {totalItems > 0 && (
-                                        <span className="absolute -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
-                                            {totalItems}
-                                        </span>
+                        <div>
+                            {user && (
+                                <div className='flex items-center w-full gap-4'>
+                                    {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+                                        <div>
+                                            <Link to={"/dashboard/cart"} className='relative'>
+                                                <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
+                                                {totalItems > 0 && (
+                                                    <span className="absolute -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
+                                                        {totalItems}
+                                                    </span>
+                                                )}
+                                            </Link>
+                                        </div>
                                     )}
-                                </Link>
-                                <ProfileDropdown />
-                            </div>
-                        )}
+                                    <ProfileDropdown />
+                                </div>
+                            )}
+                            {token && userLoading && (
+                                <div>
+                                    <FaUserCircle size={25} />
+                                </div>
+                            )}
+                        </div>
                     </div>
                     <button className="mr-4 md:hidden">
                         <AiOutlineMenu fontSize={24} fill="#AFB2BF" />

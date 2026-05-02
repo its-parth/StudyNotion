@@ -3,50 +3,49 @@ import { FaEye, FaEyeSlash  } from "react-icons/fa";
 import CTAButton from '../../common/CTAButton';
 import { Bounce, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { setSignupData } from '../../../redux/slices/authSlice';
+import { sendOtp } from '../../../services/operations/authAPI';
 
 const SignupForm = ({setIsLogin}) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState({
-        role : 'Student',
+        accountType : 'Student',
         firstName: '',
         lastName: '',
         email: '',
         createPass: '',
         confirmPass: ''
     });
+
     const [showCreatePass, setShowCreatePass] = useState(false);
     const [showConfirmPass, setShowConfirmPass] = useState(false);
-    const signupSubmitHandler = (event) => {
+
+    const signupSubmitHandler = async (event) => {
         event.preventDefault();
         if(formData.createPass != formData.confirmPass) {
-            toast.error('Password Didn\'t Match', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            toast.error('Password Didn\'t Match');
             return;
         }
-        toast.success('Registered Successfully!', {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce
-        });
-        console.log(formData);
-        setIsLogin(true);
-        navigate('/dashboard');
+        
+        // setting signup data to state 
+        // to be used after otp verification
+        dispatch(setSignupData(formData));
+        // send otp to user for verification
+        const result = await dispatch(sendOtp(formData.email, navigate))
+
+        if(result) {
+            setFormData({
+                accountType : 'Student',
+                firstName: '',
+                lastName: '',
+                email: '',
+                createPass: '',
+                confirmPass: ''
+            });
+        }
     }
     const changeHandler = (event) => {
         setFormData(prev => {
@@ -60,7 +59,7 @@ const SignupForm = ({setIsLogin}) => {
         setFormData(prev => {
             return {
                 ...prev,
-                role : event.target.textContent,
+                accountType : event.target.textContent,
             }
         })
     }
@@ -68,8 +67,8 @@ const SignupForm = ({setIsLogin}) => {
     <div className='select-none'>
         <form onSubmit={signupSubmitHandler} className='text-sm flex flex-col gap-4'>
             <div className='switch-role-tab bg-richblack-800 w-fit flex p-1 rounded-full text-base gap-2'>
-                <div onClick={changeRoleHandler} className={`cursor-pointer transition-all duration-300 ease-in-out student-type rounded-full ${formData.role == 'Student' ? 'bg-richblack-900 text-white' : 'text-richblack-200'} py-2 px-5`}>Student</div>
-                <div onClick={changeRoleHandler} className={`transition-all duration-300 ease-in-out cursor-pointer instructor-type rounded-full ${formData.role == 'Instructor' ? 'bg-richblack-900 text-white' : 'text-richblack-200'} py-2 px-5`}>Instructor</div>
+                <div onClick={changeRoleHandler} className={`cursor-pointer transition-all duration-300 ease-in-out student-type rounded-full ${formData.accountType == 'Student' ? 'bg-richblack-900 text-white' : 'text-richblack-200'} py-2 px-5`}>Student</div>
+                <div onClick={changeRoleHandler} className={`transition-all duration-300 ease-in-out cursor-pointer instructor-type rounded-full ${formData.accountType == 'Instructor' ? 'bg-richblack-900 text-white' : 'text-richblack-200'} py-2 px-5`}>Instructor</div>
             </div>
             <div className='flex w-full gap-3'>
                 <div className='flex-1 flex flex-col gap-1'>
