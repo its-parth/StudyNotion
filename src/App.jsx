@@ -7,17 +7,18 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Navbar from './components/common/Navbar'
+import ForgotPassword from './pages/ForgotPassword'
 function App() {
-const [isLogin, setIsLogin] = useState(false);
   return (
     <div className='w-full min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/about' element={<AboutUs />} />
-        <Route path='/login' element={<Login setIsLogin={setIsLogin}/>}></Route>
-          <Route path='/signup' element={<Signup setIsLogin={setIsLogin}/>}></Route>
-          <Route path='/dashboard' element={<Dashboard />}></Route>
+        <Route path='/login' element={<Login />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
+        <Route path='/dashboard' element={<Dashboard />}></Route>
+        <Route path='/forgot-password' element={<ForgotPassword />}></Route>
       </Routes>
     </div>
   )

@@ -96,13 +96,6 @@ exports.resetPassword = async (req, res) => {
             });
         }
 
-        if(user.resetPasswordExpired < Date.now()) {
-            return res.status(401).json({
-                success: false,
-                message: 'Invalid url token',
-            });
-        }
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         await User.findByIdAndUpdate(

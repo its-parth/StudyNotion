@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import { FaEye, FaEyeSlash  } from "react-icons/fa";
 import CTAButton from '../../common/CTAButton';
 import { Bounce, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setSignupData } from '../../../redux/slices/authSlice';
 import { sendOtp } from '../../../services/operations/authAPI';
+import { useNavigate } from 'react-router-dom';
 
-const SignupForm = ({setIsLogin}) => {
-    const navigate = useNavigate();
+const SignupForm = () => {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         accountType : 'Student',
         firstName: '',
@@ -34,9 +33,10 @@ const SignupForm = ({setIsLogin}) => {
         // to be used after otp verification
         dispatch(setSignupData(formData));
         // send otp to user for verification
-        const result = await dispatch(sendOtp(formData.email, navigate))
+        const result = await dispatch(sendOtp(formData.email))
 
-        if(result) {
+        if(result === true) {
+            toast.success("OTP Sent Successfully");
             setFormData({
                 accountType : 'Student',
                 firstName: '',
@@ -45,6 +45,9 @@ const SignupForm = ({setIsLogin}) => {
                 createPass: '',
                 confirmPass: ''
             });
+            navigate("/verify-email");
+        }else {
+            toast.error(result);
         }
     }
     const changeHandler = (event) => {

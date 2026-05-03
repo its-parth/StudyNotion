@@ -4,6 +4,7 @@ import { GoTriangleDown } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
 import { VscDashboard, VscSignOut } from "react-icons/vsc"
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
+import { logout } from '../../../services/operations/authAPI';
 
 const ProfileDropdown = () => {
   const {user} = useSelector((state) => state.profile);
@@ -26,9 +27,10 @@ const ProfileDropdown = () => {
               <VscDashboard className="text-lg" />
               Dashboard
           </Link>
-          <div onClick={() => {
-            // do logout 
+          <div onClick={async () => {
             setOpen(false);
+            await dispatch(logout());
+            navigate('/');
           }} className='flex w-full items-center gap-x-1 py-2.5 px-3 text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25'>
             <VscSignOut className="text-lg" />
             Logout

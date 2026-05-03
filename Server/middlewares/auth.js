@@ -2,8 +2,10 @@ const jwt = require('jsonwebtoken');
 
 // isAuth Middleware to verify usr
 exports.isAuth = async (req, res, next) => {
+    
     try {
         const token = req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
+        console.log("request hitted in isAuth with token ", token)
         
         if(!token) {
             return res.status(400).json({
@@ -11,11 +13,12 @@ exports.isAuth = async (req, res, next) => {
                 message: 'Token Required!',
             })
         }
-
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            console.log('decoded token ', decoded);
+            console.log('decoded token in isAuth', decoded);
+            console.log("i am here 1 isAuth");
             req.user = decoded;
+            console.log("i am here 2 isAuth");
         }catch(err) {
             return res.status(401).json({
                 success: false,

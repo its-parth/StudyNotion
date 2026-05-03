@@ -4,10 +4,10 @@ import LoginForm from './LoginForm';
 import { FcGoogle } from "react-icons/fc";
 
 const Template = (props) => {
-    const {heading, description1, description2, type, img, frame, setIsLogin} = props;
+    const {heading, description1, description2, type, img, frame} = props;
   return (
-    <div className='template-container text-white flex p-6 gap-3 w-full selec-none'>
-        <div className="template-left w-3/6 flex justify-center">
+    <div className='template-container text-white flex flex-col-reverse md:flex-row md:items-center p-6 gap-7 md:gap-3 w-full selec-none'>
+        <div className="template-left md:w-3/6 flex justify-center">
             <div className='max-w-lg p-2 lg:p-8 flex flex-col gap-6'>
                 <h2 className='text-3xl font-semibold'>{heading}</h2>
                 <div>
@@ -15,7 +15,7 @@ const Template = (props) => {
                     <p className="desc2 text-lg text-blue-100 italic">{description2}</p>
                 </div>
                 {
-                    type == 'signup' ?  <SignupForm setIsLogin={setIsLogin} /> : <LoginForm setIsLogin={setIsLogin} />
+                    type == 'signup' ?  <SignupForm /> : <LoginForm />
                 }
                 <div className='flex justify-between gap-2 items-center text-richblack-700'>
                     <div className='border flex-1'></div>
@@ -25,10 +25,10 @@ const Template = (props) => {
                 <div className='w-full flex items-center justify-center gap-2 border rounded-lg px-4 py-2 border-richblack-700 text-richblack-200 cursor-pointer'><FcGoogle />Sign Up with Google</div>
             </div>
         </div>
-        <div className="template-right w-3/6 flex justify-center">
+        <div className="template-right md:w-3/6 flex justify-center">
             <div className='relative'>
-                <img className='max-w-md w-full relative z-10' src={img} alt="img" />
-                <img className='max-w-md w-full absolute top-4 left-4 z-0' src={frame} alt="frame" />
+                <img className='max-w-sm md:max-w-md w-full relative z-10' src={img} alt="img" />
+                <img className='max-w-sm md:max-w-md w-full absolute top-4 left-4 z-0' src={frame} alt="frame" />
             </div>
         </div>
     </div>
