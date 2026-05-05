@@ -36,7 +36,7 @@ exports.resetPasswordToken = async (req, res) => {
             urlToken:hashedToken, resetPasswordExpired: new Date(Date.now() + 5 * 60 * 1000),
         }, {new: true});
 
-        const url = `http://localhost:3000/update-password/${urlToken}`
+        const url = `http://localhost:5173/update-password/${urlToken}`
 
         // send mail to user which contain url
         await sendMail(user.email, 'Password Reset Link', `Reset Link : ${url}`)

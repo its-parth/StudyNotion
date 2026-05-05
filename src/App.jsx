@@ -8,18 +8,22 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Navbar from './components/common/Navbar'
 import ForgotPassword from './pages/ForgotPassword'
+import UpdatePassword from './pages/UpdatePassword'
 function App() {
   return (
     <div className='w-full min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>
       <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/about' element={<AboutUs />} />
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/signup' element={<Signup />}></Route>
-        <Route path='/dashboard' element={<Dashboard />}></Route>
-        <Route path='/forgot-password' element={<ForgotPassword />}></Route>
-      </Routes>
+      <div className="flex-1 w-full flex justify-center">
+        <Routes>
+          <Route path='/' element={<Home />}/>
+          <Route path='/about' element={<AboutUs />} />
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/signup' element={<Signup />}></Route>
+          <Route path='/dashboard' element={<Dashboard />}></Route>
+          <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+          <Route path='/update-password/:resetPassToken' element={<UpdatePassword />}></Route>
+        </Routes>
+      </div>
     </div>
   )
 }

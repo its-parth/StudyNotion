@@ -30,7 +30,7 @@ const ProfileDropdown = () => {
           <div onClick={async () => {
             setOpen(false);
             await dispatch(logout());
-            navigate('/');
+            navigate('/');  
           }} className='flex w-full items-center gap-x-1 py-2.5 px-3 text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25'>
             <VscSignOut className="text-lg" />
             Logout
