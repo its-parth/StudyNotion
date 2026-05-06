@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard'
 import Navbar from './components/common/Navbar'
 import ForgotPassword from './pages/ForgotPassword'
 import UpdatePassword from './pages/UpdatePassword'
+import VerfiyEmail from './pages/VerfiyEmail'
 function App() {
   return (
     <div className='w-full min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>
@@ -22,6 +23,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />}></Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
           <Route path='/update-password/:resetPassToken' element={<UpdatePassword />}></Route>
+          <Route path='/verify-email' element={<VerfiyEmail />}></Route>
         </Routes>
       </div>
     </div>

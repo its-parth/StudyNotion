@@ -23,7 +23,7 @@ const LoginForm = () => {
     const loginSubmitHandler = async (event) => {
         event.preventDefault();
         const result = await dispatch(login(formData.email, formData.password));
-        if(result) {
+        if(result === true) {
             setFormData({
                 email: '',
                 password: '',

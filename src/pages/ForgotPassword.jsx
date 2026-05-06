@@ -12,6 +12,7 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState("");
     const dispatch = useDispatch();
     const {loading} = useSelector((state) => state.auth);
+    
     function changeHandler(event) {
         setEmail(event.target.value);
     }

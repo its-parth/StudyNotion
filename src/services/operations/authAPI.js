@@ -9,6 +9,7 @@ const {
     LOGIN_API,
     RESETPASSTOKEN_API,
     RESETPASSWORD_API,
+    SIGNUP_API,
 } = endpoints;
 export function sendOtp(email) {
     return async (dispatch) => {
@@ -28,7 +29,6 @@ export function sendOtp(email) {
         } catch (error) {
             console.log("SENDOTP API ERROR......", error);
             return error?.response?.data?.message || "Could Not Send OTP";
-            return false;
         } finally {
             dispatch(setLoading(false));
             toast.dismiss(toastId);
@@ -36,6 +36,30 @@ export function sendOtp(email) {
     }
 }
 
+export function signup(signupData) {
+    return async function (dispatch) {
+        const toastId = toast.loading("Loading...");
+        try {
+            dispatch(setLoading(true));
+            const response = await apiConnector("POST", SIGNUP_API, signupData);
+            if(!response.data.success) {
+                throw new Error(response.data.message);
+            }
+            // signup successfull
+            // move to login page
+            return true;
+        }catch(error) {
+            console.log("SIGNUP API ERROR: ", err);
+            
+            toast.error(error?.response?.data?.message || error?.message || "Could Not SignUp");
+            return false;
+        }finally {
+            toast.dismiss(toastId);
+            dispatch(setLoading(false));
+        }
+    }
+}
+const delay = (ms) => new Promise((res) => setTimeout(res, ms)); 
 export function login(email, password) {
     return async (dispatch) => {
         const toastId = toast.loading("Loading...");
@@ -45,7 +69,7 @@ export function login(email, password) {
             if (!response.data.success) {
                 throw new Error(response.data.message);
             }
-
+            await delay(5000);
             // login successfull think about what to do after login 
             // 1) save token and user in react redux state
             // 2) save in local storage also token and user 
