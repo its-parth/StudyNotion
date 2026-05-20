@@ -65,7 +65,26 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-      
+      {/* Third section */}
+      <div className='bg-richblack-800 flex justify-center gap-3 md:gap-5 lg:gap-10 py-15'>
+          <div className='flex flex-col gap-2 w-50 items-center'>
+            <div className='text-white font-semibold font-inter text-2xl'>5K</div>
+            <div className='text-richblack-500'>Active Students</div>
+          </div>
+          <div className='flex flex-col gap-2 w-50 items-center'>
+            <div className='text-white font-semibold font-inter text-2xl'>10+</div>
+            <div className='text-richblack-500'>Mentors</div>
+          </div>
+          <div className='flex flex-col gap-2 w-50 items-center'>
+            <div className='text-white font-semibold font-inter text-2xl'>200+</div>
+            <div className='text-richblack-500'>Courses</div>
+          </div>
+          <div className='flex flex-col gap-2 w-50 items-center'>
+            <div className='text-white font-semibold font-inter text-2xl'>50+</div>
+            <div className='text-richblack-500'>Awards</div>
+          </div>
+      </div>
+      {/* fourth secition */}
 
     </div>
   )
