@@ -4,6 +4,7 @@ import CTAButton from '../components/common/CTAButton'
 import About1 from '../assets/Images/aboutus1.webp'
 import About2 from '../assets/Images/aboutus2.webp'
 import About3 from '../assets/Images/aboutus3.webp'
+import FoudingStory from '../assets/Images/FoundingStory.png'
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 
 const AboutUs = () => {
@@ -32,13 +33,40 @@ const AboutUs = () => {
         </div>
         {/* Bottom section */}
         <div className='bg-richblack-900 py-12 min-[1350px]:pt-25 md:w-[80%] mx-4 md:mx-auto max-w-maxContent'>
-          <h2 className=" font-semibold font-inter text-richblack-100 text-2xl md:text-3xl lg:text-4xl leading-normal text-center"><FaQuoteLeft className='text-richblack-600 inline text-xl md:text-2xl mr-2 mb-6'/>We are passionate about revolutionizing the way we learn. Our innovative platform <span className='bg-linear-to-r from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text'>combines technology</span>, <span className='bg-linear-to-r from-[#FF512F] to-[#F09819] text-transparent bg-clip-text'>expertise</span>, and community to create an <span className='bg-linear-to-r from-[#E65C00] to-[#F9D423] text-transparent bg-clip-text'>unparalleled educational experience.</span><FaQuoteRight className='inline text-xl md:text-2xl mr-2 mb-6 text-richblack-600'/></h2>
+          <h2 className=" font-semibold font-inter text-richblack-100 text-2xl md:text-3xl lg:text-4xl leading-normal text-center"><FaQuoteLeft className='text-richblack-600 inline text-xl md:text-2xl mr-2 mb-6' />We are passionate about revolutionizing the way we learn. Our innovative platform <span className='bg-linear-to-r from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text'>combines technology</span>, <span className='bg-linear-to-r from-[#FF512F] to-[#F09819] text-transparent bg-clip-text'>expertise</span>, and community to create an <span className='bg-linear-to-r from-[#E65C00] to-[#F9D423] text-transparent bg-clip-text'>unparalleled educational experience.</span><FaQuoteRight className='inline text-xl md:text-2xl mr-2 mb-6 text-richblack-600' /></h2>
         </div>
       </div>
       {/* second section */}
-      <div>
-
+      <div className='bg-richblack-900'>
+        <div className='lg:w-[80%] max-w-maxContent flex flex-col lg:flex-row items-center mx-auto justify-between py-5 md:py-10 px-4'>
+          <div className='max-w-125 lg:max-w-none lg:w-[45%] flex flex-col gap-4 font-inter'>
+            <h2 className='font-inter font-semibold text-2xl md:text-3xl lg:text-4xl bg-linear-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCB045] bg-clip-text text-transparent'>Our Fouding Story</h2>
+            <p className='text-richblack-300'>Our e-learning platform was born out of a shared vision and passion for transforming education. It all began with a group of educators, technologists, and lifelong learners who recognized the need for accessible, flexible, and high-quality learning opportunities in a rapidly evolving digital world.</p>
+            <p className='text-richblack-300'>As experienced educators ourselves, we witnessed firsthand the limitations and challenges of traditional education systems. We believed that education should not be confined to the walls of a classroom or restricted by geographical boundaries. We envisioned a platform that could bridge these gaps and empower individuals from all walks of life to unlock their full potential.</p>
+          </div>
+          <div className='lg:w-[50%] relative mt-6 lg:mt-0 md:px-2 md:py-4 flex justify-center'>
+            <div className='relative max-w-120'>
+              {/* glow */}
+              <div className='inset-0 absolute z-0'>
+                <div className='w-full h-full bg-orange-400 opacity-90 blur-md rounded-sm mx-auto'></div>
+              </div>
+              <img className='w-full relative z-50' src={FoudingStory} alt="aboutus" />
+            </div>
+          </div>
+        </div>
+        <div className='sm:w-[90%] md:w-[80%] max-w-maxContent px-4 py-10 lg:py-20 flex flex-col gap-6 md:gap-0 md:flex-row justify-between mx-auto font-inter'>
+          <div className='md:w-[45%] flex flex-col gap-4'>
+            <h2 className='font-inter font-semibold text-2xl md:text-3xl lg:text-4xl bg-linear-to-r  from-[#E65C00] to-[#F9D423] bg-clip-text text-transparent'>Our Vision</h2>
+            <p className='text-richblack-300'>With this vision in mind, we set out on a journey to create an e-learning platform that would revolutionize the way people learn. Our team of dedicated experts worked tirelessly to develop a robust and intuitive platform that combines cutting-edge technology with engaging content, fostering a dynamic and interactive learning experience.</p>
+          </div>
+          <div className='md:w-[45%] flex flex-col gap-4'>
+            <h2 className='font-inter font-semibold text-2xl md:text-3xl lg:text-4xl bg-linear-to-r  from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] bg-clip-text text-transparent'>Our Mission</h2>
+            <p className='text-richblack-300'>our mission goes beyond just delivering courses online. We wanted to create a vibrant community of learners, where individuals can connect, collaborate, and learn from one another. We believe that knowledge thrives in an environment of sharing and dialogue, and we foster this spirit of collaboration through forums, live sessions, and networking opportunities.</p>
+          </div>
+        </div>
       </div>
+      
+
     </div>
   )
 }
