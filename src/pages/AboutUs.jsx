@@ -6,6 +6,7 @@ import About2 from '../assets/Images/aboutus2.webp'
 import About3 from '../assets/Images/aboutus3.webp'
 import FoudingStory from '../assets/Images/FoundingStory.png'
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+import LearningGrid from '../components/core/AboutUsPage/LearningGrid'
 
 const AboutUs = () => {
   return (
@@ -66,7 +67,7 @@ const AboutUs = () => {
         </div>
       </div>
       {/* Third section */}
-      <div className='bg-richblack-800 flex justify-center gap-3 md:gap-5 lg:gap-10 py-15'>
+      <div className='bg-richblack-800 flex justify-center gap-3 md:gap-5 lg:gap-10 py-15 flex-wrap'>
           <div className='flex flex-col gap-2 w-50 items-center'>
             <div className='text-white font-semibold font-inter text-2xl'>5K</div>
             <div className='text-richblack-500'>Active Students</div>
@@ -85,7 +86,10 @@ const AboutUs = () => {
           </div>
       </div>
       {/* fourth secition */}
-
+      <div className='bg-richblack-900 font-inter py-15 px-4'>
+        <LearningGrid />
+      </div>
+      <div></div>
     </div>
   )
 }
