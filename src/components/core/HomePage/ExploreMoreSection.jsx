@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import HighlightText from '../../common/HighlightText'
-import { HomePageExplore } from '../../../../data/homepage-explore';
+import { HomePageExplore } from '../../../data/homepage-explore';
 import { IoMdPeople } from "react-icons/io";
 import { TbBinaryTree2Filled } from "react-icons/tb";
 const ExploreMoreSection = () => {

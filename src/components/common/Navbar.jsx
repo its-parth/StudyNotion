@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CTAButton from './CTAButton'
-import { NavbarLinks } from '../../../data/navbar-links'
+import { NavbarLinks } from '../../data/navbar-links'
 import { Link, matchPath, useLocation } from 'react-router-dom'
 import logo from '../../assets/Logo/Logo-Full-Light.png'
 import { useSelector } from 'react-redux'

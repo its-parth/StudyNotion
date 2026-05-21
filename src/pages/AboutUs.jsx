@@ -7,6 +7,7 @@ import About3 from '../assets/Images/aboutus3.webp'
 import FoudingStory from '../assets/Images/FoundingStory.png'
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import LearningGrid from '../components/core/AboutUsPage/LearningGrid'
+import ContactFormSection from '../components/core/AboutUsPage/ContactFormSection'
 
 const AboutUs = () => {
   return (
@@ -89,7 +90,14 @@ const AboutUs = () => {
       <div className='bg-richblack-900 font-inter py-15 px-4'>
         <LearningGrid />
       </div>
-      <div></div>
+      {/* fifth section */}
+      {/* contact us section */}
+      <div className='bg-richblack-900 font-inter py-15 px-4'>
+        {/* define outer div width to be size of contact us form */}
+        <div className='w-[90%] sm:w-[80%] md:w-[60%] lg:w-[45%] max-w-175 mx-auto'>
+          <ContactFormSection />
+        </div>
+      </div>
     </div>
   )
 }

@@ -88,8 +88,7 @@ const SignupForm = () => {
                 </div>
                 <div className=' flex flex-col gap-1'>
                     <label htmlFor="emailId">Email Address<span className='text-red-400'>*</span></label>
-                    <input required name='email' value={formData.email} onChange={changeHandler} className='bg-richblack-800
-    w-full rounded-lg p-3' type="email" id='emailId' placeholder='Enter Email Address'/>
+                    <input required name='email' value={formData.email} onChange={changeHandler} className='bg-richblack-800 w-full rounded-lg p-3' type="email" id='emailId' placeholder='Enter Email Address'/>
                 </div>
                 <div className='flex gap-3'>
                     <div className='flex-1  flex flex-col gap-1'>

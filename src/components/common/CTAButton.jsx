@@ -14,8 +14,11 @@ const CTAButton = ({ text, variant = "primary", arrow, linkTo, className, type, 
                 }
         </Link>)
         :
-        <button onClick={onClick} type={type} className={`${baseStyles} ${variants[variant]} ${className} flex items-center gap-2`}>
+        <button onClick={onClick} type={type} className={`${baseStyles}  flex justify-center gap-2 ${variants[variant]} ${className}`}>
             {text}
+            {
+                arrow && <FaArrowRight />
+            }
         </button>
 }
 
