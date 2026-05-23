@@ -21,6 +21,7 @@ const Navbar = () => {
     const [subLinks, setSubLinks] = useState([]);
     const [loading, setLoading] = useState(false);
     const userLoading = useSelector((state) => state.profile.loading)
+    console.log("user: ", user);
     const matchRoute = (route) => {
         return matchPath({ path: route }, location.pathname);
     }

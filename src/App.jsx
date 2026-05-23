@@ -10,6 +10,10 @@ import Navbar from './components/common/Navbar'
 import ForgotPassword from './pages/ForgotPassword'
 import UpdatePassword from './pages/UpdatePassword'
 import VerfiyEmail from './pages/VerfiyEmail'
+import DashboardDefaultPage from './components/core/Dashboard/DashboardDefaultPage'
+import MyProfile from './components/core/Dashboard/MyProfile'
+import Wishlist from './components/core/Dashboard/Wishlist'
+import PurchaseHistory from './components/core/Dashboard/PurchaseHistory'
 function App() {
   return (
     <div className='w-full min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>
@@ -20,7 +24,12 @@ function App() {
           <Route path='/about' element={<AboutUs />} />
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<Signup />}></Route>
-          <Route path='/dashboard' element={<Dashboard />}></Route>
+          <Route path='/dashboard' element={<Dashboard />}>
+            <Route index element={<DashboardDefaultPage />}></Route>
+            <Route path='my-profile' element={<MyProfile />}></Route>
+            <Route path='wishlist' element={<Wishlist />}></Route>
+            <Route path='purchase-history' element={<PurchaseHistory />}></Route>
+          </Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
           <Route path='/update-password/:resetPassToken' element={<UpdatePassword />}></Route>
           <Route path='/verify-email' element={<VerfiyEmail />}></Route>
