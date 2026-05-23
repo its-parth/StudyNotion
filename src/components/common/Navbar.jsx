@@ -59,9 +59,9 @@ const Navbar = () => {
     }, []);
 
     return (
-        <div className='w-full border-b border-richblack-700 flex justify-center'>
+        <div className='w-full border-b-2 border-richblack-700 flex justify-center'>
             <div className='text-white bg-richblack-900 w-11/12 max-w-maxContent'>
-                <nav className='w-full flex justify-between items-center py-3'>
+                <nav className='w-full flex justify-between items-center h-16'>
                     <div>
                         <img className='w-40' src={logo} alt="logo" />
                     </div>

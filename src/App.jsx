@@ -24,7 +24,7 @@ function App() {
           <Route path='/about' element={<AboutUs />} />
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<Signup />}></Route>
-          <Route path='/dashboard' element={<Dashboard />}>
+          <Route path='/dashboard' element={<div className='h-[calc(100vh-66px)] w-full overflow-hidden'><Dashboard /></div>}>
             <Route index element={<DashboardDefaultPage />}></Route>
             <Route path='my-profile' element={<MyProfile />}></Route>
             <Route path='wishlist' element={<Wishlist />}></Route>
