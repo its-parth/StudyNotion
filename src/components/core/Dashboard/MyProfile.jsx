@@ -90,7 +90,7 @@ const MyProfile = () => {
                                         user?.additionalDetails?.dateOfBirth
                                     ).toLocaleDateString("en-GB", {
                                         day: "numeric",
-                                        month: "long",
+                                        month: "short",
                                         year: "numeric",
                                     })
                                 ) : (

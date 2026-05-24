@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/common/Loader'
-import { setLoading as setAuthLoading } from '../redux/slices/authSlice'
+import { setLoading as setAuthLoading } from '../redux/slices/authSlice' 
 import Sidebar from '../components/core/Dashboard/Sidebar'
 const Dashboard = () => {
   const authLoading = useSelector((state) => state.auth.loading);
