@@ -118,7 +118,7 @@ exports.signup = async (req, res) => {
         const profile = await Profile.create({
             gender: null, 
             dateOfBirth: null,
-            aboutDetails: null,
+            about: null,
             contactNumber: null,
         });
 
@@ -162,7 +162,7 @@ exports.login = async (req, res) => {
         }
 
         // is user exist or not
-        const existingUser = await User.findOne({email});
+        const existingUser = await User.findOne({email}).populate('additionalDetails');
         if(!existingUser) {
             return res.status(400).json({
                 success: false,

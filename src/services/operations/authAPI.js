@@ -69,7 +69,7 @@ export function login(email, password) {
             if (!response.data.success) {
                 throw new Error(response.data.message);
             }
-            await delay(5000);
+            // await delay(5000);
             // login successfull think about what to do after login 
             // 1) save token and user in react redux state
             // 2) save in local storage also token and user 

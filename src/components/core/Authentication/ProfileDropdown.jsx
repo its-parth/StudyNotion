@@ -19,7 +19,7 @@ const ProfileDropdown = () => {
 
   return (
     <div className='flex gap-1 items-center relative' ref={dropdownRef}>
-      <img className='select-none w-8 h-8 rounded-full' src={user.image} alt="user-img" />
+      <img className='select-none w-8 h-8 rounded-full object-cover' src={user.image} alt="user-img" />
       <GoTriangleDown onClick={() => setOpen(prev => !prev)} className='text-richblack-200 cursor-pointer' size={25}/>
       
       <div className={`z-50 mt-2 absolute top-full right-0 select-none transition-all duration-300 bg-richblack-800 border border-richblack-700 overflow-hidden rounded-lg divide-y divide-richblack-700 ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}>
@@ -30,7 +30,7 @@ const ProfileDropdown = () => {
           <div onClick={async () => {
             setOpen(false);
             await dispatch(logout());
-            navigate('/');  
+            navigate('/login');  
           }} className='flex w-full items-center gap-x-1 py-2.5 px-3 text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25'>
             <VscSignOut className="text-lg" />
             Logout

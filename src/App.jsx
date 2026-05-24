@@ -14,6 +14,9 @@ import DashboardDefaultPage from './components/core/Dashboard/DashboardDefaultPa
 import MyProfile from './components/core/Dashboard/MyProfile'
 import Wishlist from './components/core/Dashboard/Wishlist'
 import PurchaseHistory from './components/core/Dashboard/PurchaseHistory'
+import Settings from './components/core/Dashboard/Settings'
+
+// todo create open route and private route 
 function App() {
   return (
     <div className='w-full min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>
@@ -29,6 +32,7 @@ function App() {
             <Route path='my-profile' element={<MyProfile />}></Route>
             <Route path='wishlist' element={<Wishlist />}></Route>
             <Route path='purchase-history' element={<PurchaseHistory />}></Route>
+            <Route path='settings' element={<Settings />}></Route>
           </Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
           <Route path='/update-password/:resetPassToken' element={<UpdatePassword />}></Route>
