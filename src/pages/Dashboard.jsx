@@ -13,7 +13,7 @@ const Dashboard = () => {
       <div className='w-64 h-full'>
         <Sidebar />
       </div>
-      <div className='flex-1 h-full flex justify-center overflow-y-auto'>
+      <div className='flex-1 h-full flex justify-center overflow-y-auto relative' id='dashboard-content'>
         <div className='w-full max-w-250 h-full'>
           {
             (authLoading || profileLoading) ? <div className='w-full h-full flex items-center justify-center'><Loader /></div> : <Outlet />

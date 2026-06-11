@@ -49,7 +49,7 @@ export function signup(signupData) {
             // move to login page
             return true;
         }catch(error) {
-            console.log("SIGNUP API ERROR: ", err);
+            console.log("SIGNUP API ERROR: ", error);
             
             toast.error(error?.response?.data?.message || error?.message || "Could Not SignUp");
             return false;

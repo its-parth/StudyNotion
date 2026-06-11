@@ -1,3 +1,4 @@
+
 .code-border {
     border: 2px solid;
     border-image-slice: 1;
@@ -7,4 +8,41 @@
 .selectedTab {
     background-color: var(--color-richblack-900);
     color: white;
+}
+html,
+body {
+  overflow-x: hidden;
+}
+
+.yellowButton {
+  cursor: pointer;
+  border-radius: 0.375rem;
+  background-color: var(--color-yellow-50);
+  padding: 8px 20px;
+  font-weight: 600;
+  color: var(--color-richblack-900);
+}
+
+.form-style {
+  border-radius: 0.5rem;
+  background-color: var(--color-richblack-700);
+  padding: 0.75rem;
+  font-size: 16px;
+  line-height: 24px;
+  color:var(--color-richblack-5);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.5);
+  outline: none;
+}
+
+.form-style::placeholder {
+  color: var(--color-richblack-400);
+}
+
+.form-style:focus {
+  outline: none;
+}
+
+.lable-style{
+    font-size: 14px;
+    color: var(--color-richblack-5)
 }

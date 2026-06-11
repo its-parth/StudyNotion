@@ -14,7 +14,7 @@ import DashboardDefaultPage from './components/core/Dashboard/DashboardDefaultPa
 import MyProfile from './components/core/Dashboard/MyProfile'
 import Wishlist from './components/core/Dashboard/Wishlist'
 import PurchaseHistory from './components/core/Dashboard/PurchaseHistory'
-import Settings from './components/core/Dashboard/Settings'
+import Settings from './components/core/Dashboard/Setting/Settings'
 
 // todo create open route and private route 
 function App() {
