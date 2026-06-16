@@ -8,6 +8,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { RxCountdownTimer } from "react-icons/rx";
 import { sendOtp, signup } from '../services/operations/authAPI';
 import { setLoading } from '../redux/slices/authSlice';
+import { toast } from 'react-toastify';
 
 const VerifyEmail = () => {
     const [otp, setOtp] = useState('');
@@ -21,14 +22,18 @@ const VerifyEmail = () => {
         }
     }, []);
 
-    const handlerVerifyAndSignup = (event) => {
+    const handlerVerifyAndSignup = async (event) => {
         event.preventDefault();
         let signupInfo = {
             ...signupData,
             otp: otp
         }
         console.log("signup info: ", signupInfo);
-        dispatch(signup(signupInfo));
+        const result = await dispatch(signup(signupInfo));
+        if(result) {
+          toast.success("Signup Successfull!");
+          navigate('/login');
+        }
     }
     return (
     <div className='flex'>

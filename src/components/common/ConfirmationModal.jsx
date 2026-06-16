@@ -2,7 +2,7 @@ import IconBtn from "./IconBtn"
 import { createPortal } from "react-dom"
 export default function ConfirmationModal({ modalData }) {
   return createPortal(
-    <div className="absolute inset-0 z-1000 mt-0! grid place-items-center overflow-auto bg-white/10 backdrop-blur-sm">
+    <div className="fixed inset-0 z-1000 mt-0! grid place-items-center overflow-auto bg-white/10 backdrop-blur-sm">
       <div className="w-11/12 max-w-87.5 rounded-lg border border-richblack-400 bg-richblack-800 p-6">
         <p className="text-2xl font-semibold text-richblack-5">
           {modalData?.text1}
