@@ -9,7 +9,7 @@ import { RxCountdownTimer } from "react-icons/rx";
 import { sendOtp, signup } from '../services/operations/authAPI';
 import { setLoading } from '../redux/slices/authSlice';
 
-const VerfiyEmail = () => {
+const VerifyEmail = () => {
     const [otp, setOtp] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -79,4 +79,4 @@ const VerfiyEmail = () => {
   )
 }
 
-export default VerfiyEmail
+export default VerifyEmail

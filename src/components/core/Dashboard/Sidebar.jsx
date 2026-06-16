@@ -17,7 +17,7 @@ const Sidebar = () => {
     const navigate = useNavigate();
     console.log(confirmationModal)
   return (
-    <div className='w-full bg-richblack-800 h-full flex flex-col border-r border-richblack-700'>
+    <div className='w-full bg-richblack-800 h-full flex flex-col border-r border-richblack-700 font-semibold text-md'>
         {
             SidebarLinks.map((link, index) => {
                 const Icon = link.icon;

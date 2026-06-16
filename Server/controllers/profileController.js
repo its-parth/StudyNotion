@@ -8,7 +8,7 @@ exports.updateProfile = async (req, res) => {
     try {
         const { dateOfBirth, about, contactNumber, gender } = req.body;
         // todo add validation for contactNumber gender 
-
+        console.log(about, contactNumber, dateOfBirth, gender);
         const user = await User.findById(req.user.id);
         if(!user) {
             return res.status(404).json({

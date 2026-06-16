@@ -1,5 +1,5 @@
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import AboutUs from './pages/AboutUs'
 import { useState } from 'react'
@@ -9,15 +9,32 @@ import Dashboard from './pages/Dashboard'
 import Navbar from './components/common/Navbar'
 import ForgotPassword from './pages/ForgotPassword'
 import UpdatePassword from './pages/UpdatePassword'
-import VerfiyEmail from './pages/VerfiyEmail'
+import VerifyEmail from './pages/VerifyEmail'
 import DashboardDefaultPage from './components/core/Dashboard/DashboardDefaultPage'
 import MyProfile from './components/core/Dashboard/MyProfile'
 import Wishlist from './components/core/Dashboard/Wishlist'
 import PurchaseHistory from './components/core/Dashboard/PurchaseHistory'
 import Settings from './components/core/Dashboard/Setting/Settings'
+import OpenRoute from './components/core/Authentication/OpenRoute'
+import PrivateRoute from './components/core/Authentication/PrivateRoute'
+import { useDispatch, useSelector } from 'react-redux'
+import { ACCOUNT_TYPE } from './utils/constants'
 
 // todo create open route and private route 
 function App() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.profile);
+
+  // i copy pasted from sir code make it working by creating getUserDetails
+  // useEffect(() => {
+  //   if (localStorage.getItem("token")) {
+  //     const token = JSON.parse(localStorage.getItem("token"))
+  //     dispatch(getUserDetails(token, navigate))
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
+
   return (
     <div className='w-full min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>
       <Navbar />
@@ -25,19 +42,82 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/about' element={<AboutUs />} />
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/signup' element={<Signup />}></Route>
-          <Route path='/dashboard' element={<div className='h-[calc(100vh-66px)] w-full overflow-hidden'><Dashboard /></div>}>
+          <Route
+          path="login"
+          element={
+            <OpenRoute>
+              <Login />
+            </OpenRoute>
+          }
+        />
+        <Route
+          path="forgot-password"
+          element={
+            <OpenRoute>
+              <ForgotPassword />
+            </OpenRoute>
+          }
+        />
+        <Route
+          path="update-password/:resetPassToken"
+          element={
+            <OpenRoute>
+              <UpdatePassword />
+            </OpenRoute>
+          }
+        />
+        <Route
+          path="signup"
+          element={
+            <OpenRoute>
+              <Signup />
+            </OpenRoute>
+          }
+        />
+        <Route
+          path="verify-email"
+          element={
+            <OpenRoute>
+              <VerifyEmail />
+            </OpenRoute>
+          }
+        />
+
+          <Route path='/dashboard' element={<PrivateRoute><div className='h-[calc(100vh-66px)] w-full overflow-hidden'><Dashboard /></div></PrivateRoute>}>
             <Route index element={<DashboardDefaultPage />}></Route>
+            {/* Route for all users */}
             <Route path='my-profile' element={<MyProfile />}></Route>
+            <Route path='settings' element={<Settings />}></Route>
             <Route path='wishlist' element={<Wishlist />}></Route>
             <Route path='purchase-history' element={<PurchaseHistory />}></Route>
-            <Route path='settings' element={<Settings />}></Route>
+            {/* Route only for Students */}
+            {/* {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+              <>
+                <Route
+                  path="enrolled-courses"
+                  element={<EnrolledCourses />}
+                />
+                <Route path="/cart" element={<Cart />} />
+              </>
+            )} */}
+            {/* Route only for Instructors */}
+            {/* {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+              <>
+                <Route path="instructor" element={<Instructor />} />
+                <Route path="my-courses" element={<MyCourses />} />
+                <Route path="add-course" element={<AddCourse />} />
+                <Route
+                  path="edit-course/:courseId"
+                  element={<EditCourse />}
+                />
+              </>
+            )} */}
           </Route>
-          <Route path='/forgot-password' element={<ForgotPassword />}></Route>
-          <Route path='/update-password/:resetPassToken' element={<UpdatePassword />}></Route>
-          <Route path='/verify-email' element={<VerfiyEmail />}></Route>
+
+          {/* 404 Page */}
+          <Route path="*" element={<Error />} />
         </Routes>
+        
       </div>
     </div>
   )
