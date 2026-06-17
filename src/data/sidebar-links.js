@@ -15,7 +15,7 @@ export const SidebarLinks = [
     title: "Enrolled Courses",
     path: "/dashboard/enrolled-courses",
     icon: FaBook,
-  },
+  }, 
   {
     title: "Wishlist",
     path: "/dashboard/wishlist",

@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   return (
     <div className='flex-1 w-full flex bg-richblack-900 overflow-hidden h-full'>
-      <div className='w-50 h-full'>
+      <div className='w-60 h-full'>
         <Sidebar />
       </div>
       <div className='flex-1 h-full flex justify-center overflow-y-auto relative' id='dashboard-content'>

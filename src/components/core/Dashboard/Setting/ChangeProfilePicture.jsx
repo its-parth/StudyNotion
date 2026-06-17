@@ -3,6 +3,7 @@ import { FiUpload } from "react-icons/fi"
 import { useDispatch, useSelector } from "react-redux"
 import IconBtn from "../../../Common/IconBtn"
 import { updateDisplayPicture } from "../../../../services/operations/settingAPI"
+import { toast } from "react-toastify"
 
 export default function ChangeProfilePicture() {
   const { token } = useSelector((state) => state.auth)
@@ -36,19 +37,23 @@ export default function ChangeProfilePicture() {
     }
   }
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async () => {
     try {
-      console.log("uploading...")
+      if(!imageFile) {
+        toast.error("Please select an image");
+        return;
+      }
       setLoading(true)
       const formData = new FormData()
       formData.append("displayPicture", imageFile)
       console.log("formdata", formData)
       console.log("in handle file upload.......");
-      dispatch(updateDisplayPicture(token, formData)).then(() => {
-        setLoading(false)
-      })
+      await dispatch(updateDisplayPicture(token, formData));
+      setImageFile(null);
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)
+    } finally {
+      setLoading(false);
     }
   }
 

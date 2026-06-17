@@ -224,6 +224,7 @@ exports.getEnrolledCourses = async (req, res) => {
 exports.updateDisplayPicture = async (req, res) => {
     try {
         // todo check file type
+        // todo delete old image for this store image url and public id and first upload new one and then delete old one and then update new image id and url in database
         const displayPicture = req?.files?.displayPicture;
         // find what is 1000 & 1000 what is the use of it and if it is width and height handle it properly also see crop: "fill"....
         if(!displayPicture) {
