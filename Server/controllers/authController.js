@@ -216,7 +216,7 @@ exports.login = async (req, res) => {
 // change password
 exports.changePassword = async (req, res) => {
     try {
-        const { oldPassword, newPassword, confirmPassword } = req.body;
+        const { oldPassword, newPassword } = req.body;
     
         const email = req.user.email;
         if(!email) {
@@ -226,19 +226,13 @@ exports.changePassword = async (req, res) => {
             })
         }
 
-        if(!oldPassword || !newPassword || !confirmPassword) {
+        if(!oldPassword || !newPassword) {
             return res.status(400).json({
                 success: false,
                 message: 'All Fields Required',
             })
         }
         
-        if(newPassword !== confirmPassword) {
-            return res.status(400).json({
-                success: false,
-                message: 'Passwords are not matching!',
-            })
-        }
 
         const user = await User.findOne({email});
         
