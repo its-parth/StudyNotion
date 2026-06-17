@@ -2,7 +2,7 @@ import './App.css'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import AboutUs from './pages/AboutUs'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
@@ -19,6 +19,7 @@ import OpenRoute from './components/core/Authentication/OpenRoute'
 import PrivateRoute from './components/core/Authentication/PrivateRoute'
 import { useDispatch, useSelector } from 'react-redux'
 import { ACCOUNT_TYPE } from './utils/constants'
+import { getUserDetails } from './services/operations/profileAPI'
 
 // todo create open route and private route 
 function App() {
@@ -26,14 +27,13 @@ function App() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.profile);
 
-  // i copy pasted from sir code make it working by creating getUserDetails
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     const token = JSON.parse(localStorage.getItem("token"))
-  //     dispatch(getUserDetails(token, navigate))
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token")
+      console.log("token: ", token);
+      dispatch(getUserDetails(token, navigate))
+    }
+  }, [])
 
   return (
     <div className='w-full min-h-screen bg-richblack-900 flex flex-col font-inter items-center'>

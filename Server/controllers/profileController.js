@@ -168,7 +168,7 @@ exports.getUserAllDetails = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "User details fetched successfully",
-            user
+            data:user
         });
     }catch(err) {
         console.log('Error in getting user all Details: ', err);
@@ -224,8 +224,14 @@ exports.getEnrolledCourses = async (req, res) => {
 exports.updateDisplayPicture = async (req, res) => {
     try {
         // todo check file type
-        const displayPicture = req.files.displayPicture;
+        const displayPicture = req?.files?.displayPicture;
         // find what is 1000 & 1000 what is the use of it and if it is width and height handle it properly also see crop: "fill"....
+        if(!displayPicture) {
+            return res.status(400).json({
+                success: false,
+                message: 'Display Picture Not Provided'
+            })
+        }
         const image = await uploadFileToCloudinary(
             displayPicture,
             'StudyNotion',
