@@ -12,15 +12,14 @@ import UpdatePassword from './pages/UpdatePassword'
 import VerifyEmail from './pages/VerifyEmail'
 import DashboardDefaultPage from './components/core/Dashboard/DashboardDefaultPage'
 import MyProfile from './components/core/Dashboard/MyProfile'
-import Wishlist from './components/core/Dashboard/Wishlist'
-import PurchaseHistory from './components/core/Dashboard/PurchaseHistory'
+
 import Settings from './components/core/Dashboard/Setting/Settings'
 import OpenRoute from './components/core/Authentication/OpenRoute'
 import PrivateRoute from './components/core/Authentication/PrivateRoute'
 import { useDispatch, useSelector } from 'react-redux'
 import { ACCOUNT_TYPE } from './utils/constants'
 import { getUserDetails } from './services/operations/profileAPI'
-
+import AddCourse from './components/core/Dashboard/AddCourse/index'
 // todo create open route and private route 
 function App() {
   const dispatch = useDispatch();
@@ -88,10 +87,8 @@ function App() {
             {/* Route for all users */}
             <Route path='my-profile' element={<MyProfile />}></Route>
             <Route path='settings' element={<Settings />}></Route>
-            <Route path='wishlist' element={<Wishlist />}></Route>
-            <Route path='purchase-history' element={<PurchaseHistory />}></Route>
             {/* Route only for Students */}
-            {/* {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            {user?.accountType === ACCOUNT_TYPE.STUDENT && (
               <>
                 <Route
                   path="enrolled-courses"
@@ -99,19 +96,19 @@ function App() {
                 />
                 <Route path="/cart" element={<Cart />} />
               </>
-            )} */}
+            )}
             {/* Route only for Instructors */}
-            {/* {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+            {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
               <>
-                <Route path="instructor" element={<Instructor />} />
-                <Route path="my-courses" element={<MyCourses />} />
+                {/* <Route path="instructor" element={<Instructor />} /> */}
+                {/* <Route path="my-courses" element={<MyCourses />} /> */}
                 <Route path="add-course" element={<AddCourse />} />
-                <Route
+                {/* <Route
                   path="edit-course/:courseId"
                   element={<EditCourse />}
-                />
+                /> */}
               </>
-            )} */}
+            )}
           </Route>
 
           {/* 404 Page */}

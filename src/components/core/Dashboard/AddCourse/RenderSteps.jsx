@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm"
 import CourseInformationForm from "./CourseInformation/CourseInformationForm"
 import PublishCourse from "./PublishCourse"
+import { toast } from "react-toastify"
 
 export default function RenderSteps() {
   const { step } = useSelector((state) => state.course)

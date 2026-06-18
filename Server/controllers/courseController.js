@@ -7,14 +7,32 @@ const User = require('../models/User')
 // getCourseDetails -> preview before buying getFullCourseDetails -> actual content
 exports.createCourse = async (req, res) => {
     try {
-        const { courseName, courseDescription, whatYouWillLearn, price, tags, category } = req.body;
-        const { thumbnail } = req.files;
+        const { courseName, courseDescription, whatYouWillLearn, price, tag: _tag, category, status, instructions: _instructions } = req.body;
+        const thumbnail = req.files.thumbnailImage;
         // validation
-        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail) {
+        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail || !_tag || !_instructions) {
             return res.status(400).json({
                 success: false,
                 message: 'All fields are required!',
             })
+        }
+
+        const tag = JSON.parse(_tag);
+        const instructions = JSON.parse(_instructions);
+
+        if (
+            !Array.isArray(tag) ||
+            !Array.isArray(instructions) ||
+            tag.length === 0 ||
+            instructions.length === 0
+            ) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required!',
+            })
+        }
+        if(!status || status === undefined) {
+            status = "Draft"
         }
 
         const categoryDetails = await Category.findById(category);
@@ -26,6 +44,15 @@ exports.createCourse = async (req, res) => {
         }
         // Todo check type before uploading thumbnail can be img like png jpg jpeg etc but not can be video or gif
         const instructorId = req.user.id;
+        // check that is it instructor
+        const instructorDetails = await User.findById(instructorId, {accountType: "Instructor"});
+
+        if (!instructorDetails) {
+            return res.status(404).json({
+                success: false,
+                message: "Instructor Details Not Found",
+            })
+        }
         const thumbnailUrl = await uploadFileToCloudinary(thumbnail, 'StudyNotion')?.secure_url;
 
         const course = await Course.create({
@@ -36,10 +63,12 @@ exports.createCourse = async (req, res) => {
             courseContent:[],
             ratingAndReviews:[],
             price,
-            tags,
+            tag,
             thumbnail:thumbnailUrl,
             studentsEnrolled:[],
             category,
+            status,
+            instructions
         });
 
         await User.findByIdAndUpdate(
@@ -63,7 +92,7 @@ exports.createCourse = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Course created successfully!',
-            course
+            data: course
         })
     }catch(err) {
         console.log(`Error in course creation: ${err}`);

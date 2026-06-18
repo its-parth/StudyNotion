@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const MyProfile = () => {
     const { user } = useSelector((state) => state.profile);
     return (
-        <div className='font-inter p-6'>
+        <div className='font-inter pb-6'>
             <h1 className='text-white text-4xl font-semibold'>My Profile</h1>
 
             {/* section1 */}
@@ -40,7 +40,7 @@ const MyProfile = () => {
             </section>
 
             {/* section 3 */}
-            <section className='w-full bg-richblack-800 border-2 border-richblack-700 mt-10 flex flex-col gap-2 rounded-md px-6 py-6'>
+            <section className='w-full bg-richblack-800 border-2 border-richblack-700 mt-10 flex flex-col gap-2 rounded-md px-6 py-6 mb-10'>
                 <div className='flex items-center justify-between w-full pt-2 pb-7'>
                     <div className='text-richblack-5 text-lg font-semibold'>Personal Details</div>
                     <div>
