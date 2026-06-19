@@ -10,16 +10,18 @@ import Navbar from './components/common/Navbar'
 import ForgotPassword from './pages/ForgotPassword'
 import UpdatePassword from './pages/UpdatePassword'
 import VerifyEmail from './pages/VerifyEmail'
+import AddCourse from './components/core/Dashboard/AddCourse/index'
+import MyCourses from './components/core/Dashboard/MyCourses'
 import DashboardDefaultPage from './components/core/Dashboard/DashboardDefaultPage'
 import MyProfile from './components/core/Dashboard/MyProfile'
-
+import Error from './pages/Error'
 import Settings from './components/core/Dashboard/Setting/Settings'
 import OpenRoute from './components/core/Authentication/OpenRoute'
 import PrivateRoute from './components/core/Authentication/PrivateRoute'
 import { useDispatch, useSelector } from 'react-redux'
 import { ACCOUNT_TYPE } from './utils/constants'
 import { getUserDetails } from './services/operations/profileAPI'
-import AddCourse from './components/core/Dashboard/AddCourse/index'
+
 // todo create open route and private route 
 function App() {
   const dispatch = useDispatch();
@@ -101,7 +103,7 @@ function App() {
             {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
               <>
                 {/* <Route path="instructor" element={<Instructor />} /> */}
-                {/* <Route path="my-courses" element={<MyCourses />} /> */}
+                <Route path="my-courses" element={<MyCourses />} />
                 <Route path="add-course" element={<AddCourse />} />
                 {/* <Route
                   path="edit-course/:courseId"

@@ -6,13 +6,11 @@ import { RiDeleteBin6Line } from "react-icons/ri"
 import { RxDropdownMenu } from "react-icons/rx"
 import { useDispatch, useSelector } from "react-redux"
 
-import {
-  deleteSection,
-  deleteSubSection,
-} from "../../../../../services/operations/courseDetailsAPI"
-import { setCourse } from "../../../../../slices/courseSlice"
-import ConfirmationModal from "../../../../Common/ConfirmationModal"
+
 import SubSectionModal from "./SubSectionModal"
+import { deleteSection, deleteSubSection } from "../../../../../services/operations/courseDetailsAPI"
+import ConfirmationModal from "../../../../common/ConfirmationModal"
+import { setCourse } from "../../../../../redux/slices/courseSlice"
 
 export default function NestedView({ handleChangeEditSectionName }) {
   const { course } = useSelector((state) => state.course)

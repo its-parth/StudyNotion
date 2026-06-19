@@ -74,7 +74,7 @@ export default function Upload({
                 className="h-full w-full rounded-md object-cover"
               />
             ) : (
-              <video aspectRatio="16:9" playsInline src={previewSource} />
+              <video className="aspect-video" playsInline controls src={previewSource} />
             )}
             {!viewData && (
               <button

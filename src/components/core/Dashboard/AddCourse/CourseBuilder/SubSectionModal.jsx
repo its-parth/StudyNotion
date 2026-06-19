@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { toast } from "react-hot-toast"
 import { RxCross2 } from "react-icons/rx"
 import { useDispatch, useSelector } from "react-redux"
 
-import {
-  createSubSection,
-  updateSubSection,
-} from "../../../../../services/operations/courseDetailsAPI"
-import { setCourse } from "../../../../../slices/courseSlice"
+
 import IconBtn from "../../../../Common/IconBtn"
 import Upload from "../Upload"
+import { setCourse } from "../../../../../redux/slices/courseSlice"
+import { createSubSection, updateSubSection } from "../../../../../services/operations/courseDetailsAPI"
+import { toast } from "react-toastify"
 
 export default function SubSectionModal({
   modalData,
