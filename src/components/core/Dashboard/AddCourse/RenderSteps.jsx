@@ -25,7 +25,7 @@ export default function RenderSteps() {
   ]
 
   return (
-    <>
+    <div className="pb-6">
       <div className="relative mb-2 flex w-full">
         {steps.map((item) => (
           <div key={item.id} className={`flex ${item.id !== steps.length && "flex-1"}`}>
@@ -55,33 +55,35 @@ export default function RenderSteps() {
       </div>
       
       <div className="flex w-full">
-  {steps.map((item, index) => (
-    <div
-      key={item.id}
-      className={`${
-        item.id !== 2 ? "flex-1" : ""
-      } mx-2`}
-    >
-      <p
-        className={`
-          ${
-                  step >= item.id ? "text-richblack-5" : "text-richblack-500"
-          }
-          text-sm
-          ${index === 0 ? "text-left" : ""}
-          ${index === 1 ? "text-center" : ""}
-          ${index === 2 ? "text-right" : ""}
-        `}
-      >
-        {item.title}
-      </p>
-    </div>
-  ))}
-</div>
+        {steps.map((item, index) => (
+          <div
+            key={item.id}
+            className={`${
+              item.id !== 2 ? "flex-1" : ""
+            } mx-2`}
+          >
+            <p
+              className={`
+                ${
+                        step >= item.id ? "text-richblack-5" : "text-richblack-500"
+                }
+                text-sm
+                ${index === 0 ? "text-left" : ""}
+                ${index === 1 ? "text-center" : ""}
+                ${index === 2 ? "text-right" : ""}
+              `}
+            >
+              {item.title}
+            </p>
+          </div>
+        ))}
+      </div>
       {/* Render specific component based on current step */}
-      {step === 1 && <CourseInformationForm />}
-      {step === 2 && <CourseBuilderForm />}
-      {step === 3 && <PublishCourse />}
-    </>
+      <div className="mt-6">
+        {step === 1 && <CourseInformationForm />}
+        {step === 2 && <CourseBuilderForm />}
+        {step === 3 && <PublishCourse />}
+      </div>
+    </div>
   )
 }

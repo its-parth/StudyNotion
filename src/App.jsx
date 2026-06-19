@@ -11,6 +11,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import UpdatePassword from './pages/UpdatePassword'
 import VerifyEmail from './pages/VerifyEmail'
 import AddCourse from './components/core/Dashboard/AddCourse/index'
+import EditCourse from './components/core/Dashboard/EditCourse/index'
 import MyCourses from './components/core/Dashboard/MyCourses'
 import DashboardDefaultPage from './components/core/Dashboard/DashboardDefaultPage'
 import MyProfile from './components/core/Dashboard/MyProfile'
@@ -105,10 +106,10 @@ function App() {
                 {/* <Route path="instructor" element={<Instructor />} /> */}
                 <Route path="my-courses" element={<MyCourses />} />
                 <Route path="add-course" element={<AddCourse />} />
-                {/* <Route
+                <Route
                   path="edit-course/:courseId"
                   element={<EditCourse />}
-                /> */}
+                />
               </>
             )}
           </Route>

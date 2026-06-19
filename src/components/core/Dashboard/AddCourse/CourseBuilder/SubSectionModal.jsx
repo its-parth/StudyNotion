@@ -122,7 +122,7 @@ export default function SubSectionModal({
   }
 
   return (
-    <div className="fixed inset-0 z-1000 mt-0! grid h-screen w-screen place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm">
+    <div className="fixed inset-0 z-1000 grid h-screen w-screen place-items-center hide-scrollbar overflow-auto bg-white/10 backdrop-blur-sm">
       <div className="my-10 w-11/12 max-w-175 rounded-lg border border-richblack-400 bg-richblack-800">
         {/* Modal Header */}
         <div className="flex items-center justify-between rounded-t-lg bg-richblack-700 p-5">
@@ -130,7 +130,7 @@ export default function SubSectionModal({
             {view && "Viewing"} {add && "Adding"} {edit && "Editing"} Lecture
           </p>
           <button onClick={() => (!loading ? setModalData(null) : {})}>
-            <RxCross2 className="text-2xl text-richblack-5" />
+            <RxCross2 className="text-2xl text-richblack-5 cursor-pointer" />
           </button>
         </div>
         {/* Modal Form */}
