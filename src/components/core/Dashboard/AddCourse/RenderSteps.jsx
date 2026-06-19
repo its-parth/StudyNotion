@@ -25,7 +25,7 @@ export default function RenderSteps() {
   ]
 
   return (
-    <div className="pb-6">
+    <div>
       <div className="relative mb-2 flex w-full">
         {steps.map((item) => (
           <div key={item.id} className={`flex ${item.id !== steps.length && "flex-1"}`}>
@@ -79,7 +79,7 @@ export default function RenderSteps() {
         ))}
       </div>
       {/* Render specific component based on current step */}
-      <div className="mt-6">
+      <div className="mt-6 pb-8">
         {step === 1 && <CourseInformationForm />}
         {step === 2 && <CourseBuilderForm />}
         {step === 3 && <PublishCourse />}

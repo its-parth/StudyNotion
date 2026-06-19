@@ -126,13 +126,12 @@ export default function CourseInformationForm() {
         const result = await editCourseDetails(formData, token)
         setLoading(false)
         if (result) {
-          dispatch(setStep(2))
           dispatch(setCourse(result))
+          dispatch(setStep(2))
         }
       } else {
         toast.error("No changes made to the form")
       }
-      return
     }
 
     const formData = new FormData()
@@ -295,6 +294,7 @@ export default function CourseInformationForm() {
       <div className="flex justify-end gap-x-2">
         {editCourse && (
           <button
+            type="button"
             onClick={() => dispatch(setStep(2))}
             disabled={loading}
             className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-2 px-5 font-semibold text-richblack-900`}
