@@ -117,7 +117,7 @@ export default function CoursesTable({ courses, setCourses }) {
                       disabled={loading}
                       onClick={() => navigate(`/dashboard/edit-course/${course._id}`)}
                       title="Edit"
-                      className="p-1 text-richblack-100 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300"
+                      className="p-1 text-richblack-100 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300 cursor-pointer"
                     >
                       <FiEdit2 size={20} />
                     </button>
@@ -134,7 +134,7 @@ export default function CoursesTable({ courses, setCourses }) {
                         })
                       }}
                       title="Delete"
-                      className="p-1 text-richblack-100 transition-all duration-200 hover:scale-110 hover:text-[#ff0000]"
+                      className="p-1 cursor-pointer text-richblack-100 transition-all duration-200 hover:scale-110 hover:text-[#ff0000]"
                     >
                       <RiDeleteBin6Line size={20} />
                     </button>

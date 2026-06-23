@@ -1,8 +1,10 @@
 const Course = require('../models/Course');
 const Category = require('../models/Category');
 const CourseProgress = require('../models/CourseProgress')
+const Section = require('../models/Section');
+const User = require('../models/User');
+const SubSection = require('../models/Course');
 const {uploadFileToCloudinary} = require('../utils/cloudinaryUpload');
-const User = require('../models/User')
 const { convertSecondsToDuration } = require('../utils/secToDuration')
 
 // todo we add status like draft and published to model so modify controller which works on this field like if we fetch all courses it must show courses which are published not drafted one
@@ -58,10 +60,10 @@ exports.createCourse = async (req, res) => {
                 message: "Instructor Details Not Found",
             })
         }
-        const uploadResult = await uploadFileToCloudinary(thumbnail, 'StudyNotion')?.secure_url;
-        // console.log("upload result : ", uploadResult);
+        const uploadResult = await uploadFileToCloudinary(thumbnail, 'StudyNotion');
+        console.log("upload result : ", uploadResult);
         const thumbnailUrl = uploadResult?.secure_url;
-        // console.log("thumbnail url: ", thumbnailUrl)
+        console.log("thumbnail url: ", thumbnailUrl)
 
         const course = await Course.create({
             courseName,
@@ -125,7 +127,7 @@ exports.getAllCourses = async (req, res) => {
                 thumbnail: true,
                 instructor: true,
                 ratingAndReviews: true,
-                studentsEnroled: true,
+                studentsEnrolled: true,
             }
         ).populate('instructor').exec();
 
@@ -232,7 +234,7 @@ exports.deleteCourse = async (req, res) => {
     }
 
     // Unenroll students from the course
-    const studentsEnrolled = course.studentsEnroled
+    const studentsEnrolled = course.studentsEnrolled
     for (const studentId of studentsEnrolled) {
       await User.findByIdAndUpdate(studentId, {
         $pull: { courses: courseId },
@@ -241,11 +243,14 @@ exports.deleteCourse = async (req, res) => {
 
     // Delete sections and sub-sections
     const courseSections = course.courseContent
+    console.log("courseSections: ", courseSections);
     for (const sectionId of courseSections) {
       // Delete sub-sections of the section
       const section = await Section.findById(sectionId)
+      console.log("sectionId: ", sectionId);
+      console.log("section: ", section);
       if (section) {
-        const subSections = section.subSection
+        const subSections = section.subSections
         for (const subSectionId of subSections) {
           await SubSection.findByIdAndDelete(subSectionId)
         }

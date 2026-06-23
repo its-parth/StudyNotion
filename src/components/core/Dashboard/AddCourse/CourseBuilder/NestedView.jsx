@@ -29,8 +29,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
     const result = await deleteSection({
       sectionId,
       courseId: course._id,
-      token,
-    })
+    }, token)
     if (result) {
       dispatch(setCourse(result))
     }

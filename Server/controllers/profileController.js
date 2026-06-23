@@ -87,10 +87,10 @@ exports.deleteAccount = async (req, res) => {
         await Profile.findByIdAndDelete(user.additionalDetails);
 
         await Course.updateMany(
-            {enrolledStudents: user._id},
+            {studentsEnrolled: user._id},
             {
                 $pull: {
-                    enrolledStudents: user._id
+                    studentsEnrolled: user._id
                 }
             }
         );

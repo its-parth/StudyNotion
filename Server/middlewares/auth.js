@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 exports.isAuth = async (req, res, next) => {
     
     try {
-        console.log("cookies:", req.cookies);
-        console.log("authorization:", req.header("Authorization"));
-        console.log("body:", req.body);
+        // console.log("cookies:", req.cookies);
+        // console.log("authorization:", req.header("Authorization"));
+        // console.log("body:", req.body);
         const token = req.cookies?.token || req.header("Authorization")?.replace("Bearer ", "") || req.body?.token;
         console.log("request hitted in isAuth with token ", token);
         
