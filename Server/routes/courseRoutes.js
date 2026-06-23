@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { getCourseDetails, createCourse, getAllCourses } = require('../controllers/courseController');
+const { getCourseDetails, createCourse, getAllCourses, getFullCourseDetails, getInstructorCourses, deleteCourse, editCourse } = require('../controllers/courseController');
 
 const { getCategoryPageDetails, getAllCategories, createCategory } = require('../controllers/categoryController');
 
@@ -23,6 +23,8 @@ const { isAuth, isInstructor, isStudent, isAdmin } = require('../middlewares/aut
 router.post('/createCourse', isAuth, isInstructor, createCourse);
 // //Add a Section to a Course
 router.post("/addSection", isAuth, isInstructor, createSection)
+// Edit Course routes
+router.post("/editCourse", isAuth, isInstructor, editCourse)
 // // Update a Section
 router.post("/updateSection", isAuth, isInstructor, updateSection)
 // // Delete a Section
@@ -37,6 +39,16 @@ router.post("/addSubSection", isAuth, isInstructor, createSubSection)
 router.get("/getAllCourses", getAllCourses)
 // // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
+// Get Details for a Specific Courses
+router.post("/getFullCourseDetails", isAuth, getFullCourseDetails)
+// To Update Course Progress
+// router.post("/updateCourseProgress", isAuth, isStudent, updateCourseProgress)
+// To get Course Progress
+// router.post("/getProgressPercentage", isAuth, isStudent, getProgressPercentage)
+// Delete a Course
+router.delete("/deleteCourse", isAuth, isInstructor, deleteCourse)
+// Get all Courses Under a Specific Instructor
+router.get("/getInstructorCourses", isAuth, isInstructor, getInstructorCourses)
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)

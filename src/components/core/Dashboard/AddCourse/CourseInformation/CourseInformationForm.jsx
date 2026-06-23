@@ -30,6 +30,8 @@ export default function CourseInformationForm() {
   const { course, editCourse } = useSelector((state) => state.course)
   const [loading, setLoading] = useState(false)
   const [courseCategories, setCourseCategories] = useState([])
+  console.log("inside course information form course: ", course);
+  console.log("inside course information form editCourse: ", editCourse);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -132,6 +134,7 @@ export default function CourseInformationForm() {
       } else {
         toast.error("No changes made to the form")
       }
+      return;
     }
 
     const formData = new FormData()

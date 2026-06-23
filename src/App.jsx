@@ -93,11 +93,11 @@ function App() {
             {/* Route only for Students */}
             {user?.accountType === ACCOUNT_TYPE.STUDENT && (
               <>
-                <Route
+                {/* <Route
                   path="enrolled-courses"
                   element={<EnrolledCourses />}
                 />
-                <Route path="/cart" element={<Cart />} />
+                <Route path="/cart" element={<Cart />} /> */}
               </>
             )}
             {/* Route only for Instructors */}

@@ -23,6 +23,8 @@ export default function NestedView({ handleChangeEditSectionName }) {
   // to keep track of confirmation modal
   const [confirmationModal, setConfirmationModal] = useState(null)
 
+  console.log("course in nested view: ", course);
+
   const handleDeleleSection = async (sectionId) => {
     const result = await deleteSection({
       sectionId,
@@ -54,9 +56,10 @@ export default function NestedView({ handleChangeEditSectionName }) {
         className="rounded-lg bg-richblack-700 p-6 px-8"
         id="nestedViewContainer"
       >
-        {course?.courseContent?.map((section) => (
+        {course?.courseContent?.map((section) => {
+          console.log("section in nested view: ", section);
           // Section Dropdown
-          <details key={section._id} open>
+          return <details key={section._id} open>
             {/* Section Dropdown Content */}
             <summary className="flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2">
               <div className="flex items-center gap-x-3">
@@ -96,7 +99,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
             </summary>
             <div className="px-6 pb-4">
               {/* Render All Sub Sections Within a Section */}
-              {section.subSection.map((data) => (
+              {section?.subSections?.map((data) => (
                 <div
                   key={data?._id}
                   onClick={() => setViewSubSection(data)}
@@ -147,7 +150,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
               </button>
             </div>
           </details>
-        ))}
+})}
       </div>
       {/* Modal Display */}
       {addSubSection ? (

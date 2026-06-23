@@ -6,9 +6,9 @@ const mongoose = require('mongoose');
 exports.createSubSection = async (req, res) => {
     try { 
         const { title, description, sectionId } = req.body;
-        const videoFile = req.files?.videoFile;
-        console.log("video File: ", videoFile)
-        if(!title || !description || !videoFile || !sectionId) {
+        const video = req.files?.video;
+        console.log("video File: ", video)
+        if(!title || !description || !video || !sectionId) {
             return res.status(400).json({
                 success: false,
                 message: 'All fields are required99!',
@@ -30,7 +30,7 @@ exports.createSubSection = async (req, res) => {
             })
         }
        
-        const uploadResult = await uploadFileToCloudinary(videoFile, `StudyNotion/Sections/${sectionId}`);
+        const uploadResult = await uploadFileToCloudinary(video, `StudyNotion/Sections/${sectionId}`);
 
         if(!uploadResult) {
             return res.status(500).json({
@@ -59,7 +59,7 @@ exports.createSubSection = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Sub section created successfully!',
-            section: updatedSection,
+            data: updatedSection,
         })
     }catch(err) {
         console.log('Error in creating sub section: ',err);
@@ -97,10 +97,20 @@ exports.updateSubSection = async (req, res) => {
                 message: 'Sub Section not found',
             })
         }
-
+        if(
+            title === undefined &&
+            description === undefined &&
+            !videoFile
+        ){
+            return res.status(400).json({
+                success:false,
+                message:"Nothing to update"
+            });
+        }
         const updatedData = {};
-        if(title) updatedData.title = title;
-        if(description) updatedData.description = description;
+
+        if(title != undefined) updatedData.title = title;
+        if(description != undefined) updatedData.description = description;
 
         const section = await Section.findOne({
             subSections: subSection._id,
@@ -124,16 +134,20 @@ exports.updateSubSection = async (req, res) => {
             updatedData.timeDuration = uploadResult?.duration;
         }
 
-        await SubSection.findByIdAndUpdate(subSectionId, updatedData);
+        const updatedSubSection = await SubSection.findByIdAndUpdate(
+            subSectionId,
+            updatedData,
+            { new: true }
+        );
 
-        const updatedSection = await Section.findOne(
-            {subSections: subSectionId}
+        const updatedSection = await Section.findById(
+            section._id
         ).populate('subSections');
 
         return res.status(200).json({
             success: true,
             message: 'Sub section updated successfully!',
-            section: updatedSection
+            data: updatedSection
         });
 
     }catch(err) {
@@ -151,6 +165,7 @@ exports.deleteSubSection = async (req, res) => {
 
         // todo delete cloudinary video and also learn about transactions and centralized error handling
         const { subSectionId } = req.body;
+        
         if(!subSectionId) {
             return res.status(400).json({
                 success: false,
@@ -163,6 +178,17 @@ exports.deleteSubSection = async (req, res) => {
                 message: 'Invalid SubSection Id'
             });
         }
+
+        const section = await Section.findOne({
+            subSections: subSectionId,
+        });
+
+        if(!section) {
+            return res.status(404).json({
+                success: false,
+                message: 'Parent Section Not Found!'
+            })
+        }
         
         const subSection = await SubSection.findByIdAndDelete(subSectionId);
         if(!subSection) {
@@ -172,9 +198,6 @@ exports.deleteSubSection = async (req, res) => {
             });
         }
 
-        const section = await Section.findOne({
-            subSections: subSection._id,
-        });
 
         // remove sub section from section
         const updatedSection = await Section.findByIdAndUpdate(section._id, {
@@ -183,7 +206,7 @@ exports.deleteSubSection = async (req, res) => {
             }
         },
             {new: true}
-        );
+        ).populate("subSections");
 
         if(!updatedSection) {
             return res.status(404).json({
@@ -196,7 +219,7 @@ exports.deleteSubSection = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Sub section deleted successfully',
-            section: updatedSection
+            data: updatedSection
         })
     }catch(err) {
         console.log('Error in deleting sub section: ',err);
@@ -206,4 +229,4 @@ exports.deleteSubSection = async (req, res) => {
             message: 'Error while deleting sub section'
         });
     }
-}
+} 
