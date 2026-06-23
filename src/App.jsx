@@ -84,12 +84,25 @@ function App() {
             </OpenRoute>
           }
         />
+        // todo create InstructorRoute like PrivateRoute
+            {/* <Route
+            path="add-course"
+            element={
+              <InstructorRoute>
+                <AddCourse />
+              </InstructorRoute>
+            }
+          />
+          if (!token)
+            return <Navigate to="/login" />;
 
+          if (user.accountType !== ACCOUNT_TYPE.INSTRUCTOR)
+            return <Navigate to="/dashboard" />; */}
           <Route path='/dashboard' element={<PrivateRoute><div className='h-[calc(100vh-66px)] w-full overflow-hidden'><Dashboard /></div></PrivateRoute>}>
             <Route index element={<DashboardDefaultPage />}></Route>
             {/* Route for all users */}
-            <Route path='my-profile' element={<MyProfile />}></Route>
-            <Route path='settings' element={<Settings />}></Route>
+            <Route path='my-profile' element={<PrivateRoute><MyProfile /></PrivateRoute>}></Route>
+            <Route path='settings' element={<PrivateRoute><Settings /></PrivateRoute>}></Route>
             {/* Route only for Students */}
             {user?.accountType === ACCOUNT_TYPE.STUDENT && (
               <>
@@ -104,11 +117,11 @@ function App() {
             {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
               <>
                 {/* <Route path="instructor" element={<Instructor />} /> */}
-                <Route path="my-courses" element={<MyCourses />} />
-                <Route path="add-course" element={<AddCourse />} />
+                <Route path="my-courses" element={<PrivateRoute><MyCourses /></PrivateRoute>} />
+                <Route path="add-course" element={<PrivateRoute><AddCourse /></PrivateRoute>} />
                 <Route
                   path="edit-course/:courseId"
-                  element={<EditCourse />}
+                  element={<PrivateRoute><EditCourse /></PrivateRoute>}
                 />
               </>
             )}

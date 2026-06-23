@@ -58,8 +58,10 @@ exports.createCourse = async (req, res) => {
                 message: "Instructor Details Not Found",
             })
         }
-        const thumbnailUrl = await uploadFileToCloudinary(thumbnail, 'StudyNotion')?.secure_url;
-        console.log("thumbnail url: ", thumbnailUrl)
+        const uploadResult = await uploadFileToCloudinary(thumbnail, 'StudyNotion')?.secure_url;
+        // console.log("upload result : ", uploadResult);
+        const thumbnailUrl = uploadResult?.secure_url;
+        // console.log("thumbnail url: ", thumbnailUrl)
 
         const course = await Course.create({
             courseName,
