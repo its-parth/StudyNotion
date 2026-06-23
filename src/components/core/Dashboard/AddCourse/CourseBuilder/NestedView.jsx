@@ -70,6 +70,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
               </div>
               <div className="flex items-center gap-x-3">
                 <button
+                className="cursor-pointer"
                   onClick={() =>
                     handleChangeEditSectionName(
                       section._id,
@@ -80,6 +81,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
                   <MdEdit className="text-xl text-richblack-300" />
                 </button>
                 <button
+                  className="cursor-pointer"
                   onClick={() =>
                     setConfirmationModal({
                       text1: "Delete this Section?",

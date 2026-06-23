@@ -28,7 +28,7 @@ router.post("/editCourse", isAuth, isInstructor, editCourse)
 // // Update a Section
 router.post("/updateSection", isAuth, isInstructor, updateSection)
 // // Delete a Section
-router.post("/deleteSection/:sectionId", isAuth, isInstructor, deleteSection)
+router.post("/deleteSection", isAuth, isInstructor, deleteSection)
 // // Edit Sub Section
 router.post("/updateSubSection", isAuth, isInstructor, updateSubSection)
 // // Delete Sub Section

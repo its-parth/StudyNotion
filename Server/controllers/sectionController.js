@@ -80,7 +80,7 @@ exports.updateSection = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Section updated successfully!',
-            date: course
+            data: course
         });
     }catch(err) {
         return res.status(500).json({

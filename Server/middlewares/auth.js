@@ -4,8 +4,11 @@ const jwt = require('jsonwebtoken');
 exports.isAuth = async (req, res, next) => {
     
     try {
-        const token = req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
-        console.log("request hitted in isAuth with token ", token)
+        console.log("cookies:", req.cookies);
+        console.log("authorization:", req.header("Authorization"));
+        console.log("body:", req.body);
+        const token = req.cookies?.token || req.header("Authorization")?.replace("Bearer ", "") || req.body?.token;
+        console.log("request hitted in isAuth with token ", token);
         
         if(!token) {
             return res.status(400).json({
@@ -14,12 +17,14 @@ exports.isAuth = async (req, res, next) => {
             })
         }
         try {
+            console.log("token in isAuth: ", token);
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             console.log('decoded token in isAuth', decoded);
             console.log("i am here 1 isAuth");
             req.user = decoded;
             console.log("i am here 2 isAuth");
         }catch(err) {
+            console.log("error in isAuth : ", err)
             return res.status(401).json({
                 success: false,
                 message: 'Invalid Token',
