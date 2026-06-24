@@ -63,7 +63,19 @@ exports.getCategoryPageDetails = async (req, res) => {
             })
         }
         const categoryDetails = await Category.findById(categoryId)
-        .populate('courses')
+        .populate({
+            path: "courses",
+            // match: {status: "Published"},
+            populate: [
+                {
+                    path: "instructor",
+                    populate: "additionalDetails"
+                },
+                {
+                    path: "ratingAndReviews"
+                }
+            ]
+        })
         .exec(); 
         
         if(!categoryDetails) {
@@ -74,30 +86,59 @@ exports.getCategoryPageDetails = async (req, res) => {
         }
 
         // get courses from diff category 
-        const differentCategories = await Category.find({_id: {$ne: categoryId}}).populate('courses').exec();
+        const differentCourses = await Course.find({
+        category: { $ne: categoryId },
+        status: "Published",
+        })
+        .populate({
+            path: "instructor",
+            populate: "additionalDetails"
+        })
+        .limit(10);
+        console.log("category details: ", categoryDetails);
+        console.log("different courses: ", differentCourses);
 
         // get top 10 selling courses
         // Todo practice mongo db queries
-        const topCourses = await Course.aggregate([
+        var topCourses = await Course.aggregate([
             {
-                $addFields: {studentsCount: {$size: "$studentsEnrolled"}}
+                $match: {
+                status: "Published"
+                }
             },
             {
-                $sort: {studentsCount: -1},
+                $addFields: {
+                studentsCount: {
+                    $size: "$studentsEnrolled"
+                }
+                }
+            },
+            {
+                $sort: {
+                studentsCount: -1
+                }
             },
             {
                 $limit: 10
             }
-        ]);
+            ]);
 
+            // todo instead of doing below thing we can use lookup study this
+        topCourses = await Course.populate(topCourses, {
+            path: "instructor",
+            populate: {
+                path: "additionalDetails"
+            }
+        });
 
+        // change differentCategory to differentCourses from diff category in backend and frontend also
         return res.status(200).json({
             success: true,
             message: 'Fetched category page details successfully',
             data:{
-                categoryDetails,
-                differentCategories,
-                topCourses,
+                selectedCategory: categoryDetails,
+                differentCategory: differentCourses,
+                mostSellingCourses: topCourses,
             }
         })
     }catch(err) {

@@ -55,7 +55,7 @@ router.get("/getInstructorCourses", isAuth, isInstructor, getInstructorCourses)
 // ********************************************************************************************************
 router.post("/createCategory", isAuth, isAdmin, createCategory)
 router.get("/showAllCategories", getAllCategories)
-router.get("/categoryPageDetails/:categoryId", getCategoryPageDetails)
+router.get("/getCategoryPageDetails/:categoryId", getCategoryPageDetails)
 
 // ********************************************************************************************************
 //                                      Rating and Review

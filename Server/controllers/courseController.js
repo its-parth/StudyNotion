@@ -260,6 +260,11 @@ exports.deleteCourse = async (req, res) => {
       await Section.findByIdAndDelete(sectionId)
     }
 
+    // Remove the course id from category
+    await Category.findByIdAndUpdate(course.category, {
+      $pull: { courses: courseId }
+    })
+
     // Delete the course
     await Course.findByIdAndDelete(courseId)
 
@@ -369,6 +374,19 @@ exports.editCourse = async (req, res) => {
         process.env.FOLDER_NAME
       )
       course.thumbnail = thumbnailImage.secure_url
+    }
+
+    // syncing the categories courses
+    const categoryChanged =updates.category && updates.category.toString() !== course.category.toString();
+
+    if (categoryChanged) {
+      await Category.findByIdAndUpdate(course.category, {
+        $pull: { courses: courseId },
+      });
+
+      await Category.findByIdAndUpdate(updates.category, {
+        $addToSet: { courses: courseId },
+      });
     }
 
     // Update only the fields that are present in the request body
