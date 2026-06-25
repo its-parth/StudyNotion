@@ -24,6 +24,7 @@ import PrivateRoute from './components/core/Authentication/PrivateRoute'
 import { useDispatch, useSelector } from 'react-redux'
 import { ACCOUNT_TYPE } from './utils/constants'
 import { getUserDetails } from './services/operations/profileAPI'
+import CourseDetails from './pages/CourseDetails'
 
 // todo create open route and private route 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/about' element={<AboutUs />} />
+          <Route path='/courses/:courseId' element={<CourseDetails />} />
           <Route path='/catalog/:catalogName' element={<Catalog />} />
           <Route
           path="login"

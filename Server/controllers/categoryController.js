@@ -65,7 +65,7 @@ exports.getCategoryPageDetails = async (req, res) => {
         const categoryDetails = await Category.findById(categoryId)
         .populate({
             path: "courses",
-            // match: {status: "Published"},
+            match: {status: "Published"},
             populate: [
                 {
                     path: "instructor",

@@ -181,11 +181,31 @@ exports.getCourseDetails = async (req, res) => {
                 message: 'Invalid course id',
             })
         }
+
+        if(course.status === "Draft") {
+          return res.status(403).json({
+            success: false,
+            message: 'Accessing a draft course is not allowed'
+          })
+        }
+
+        let totalDurationInSeconds = 0
+        course.courseContent.forEach((section) => {
+          section.subSections.forEach((subSection) => {
+            const timeDurationInSeconds = parseInt(subSection.timeDuration)
+            totalDurationInSeconds += timeDurationInSeconds
+          })
+        })
+
+      const totalDuration = totalDurationInSeconds
         // todo update this controller by seeing final code
         return res.status(200).json({
             success: true,
             message: 'Course Details Fetched Successfully!',
-            data: course
+            data: {
+              courseDetails: course,
+              totalDuration
+            }
         })
     }catch(err) {
         console.log('Get course details error: ',err);
