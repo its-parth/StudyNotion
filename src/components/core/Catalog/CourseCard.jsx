@@ -1,51 +1,63 @@
 import React, { useEffect, useState } from "react"
-// Icons
-import { FaRegStar, FaStar } from "react-icons/fa"
-import ReactStars from "react-rating-stars-component"
 import { Link } from "react-router-dom"
 
 import GetAvgRating from "../../../utils/avgRating"
 import RatingStars from "../../common/RatingStars"
 
 function CourseCard({ course, Height }) {
-  // const avgReviewCount = GetAvgRating(course.ratingAndReviews)
-  // console.log(course.ratingAndReviews)
   const [avgReviewCount, setAvgReviewCount] = useState(0)
+
   useEffect(() => {
     const count = GetAvgRating(course.ratingAndReviews)
     setAvgReviewCount(count)
   }, [course])
-  // console.log("count............", avgReviewCount)
-  console.log("course in course card: ", course);
-  return (
-    <>
-      <Link to={`/courses/${course._id}`}>
-        <div className="">
-          <div className="rounded-lg">
-            <img
-              src={course?.thumbnail}
-              alt="course thumnail"
-              className={`${Height} w-full rounded-xl object-cover `}
-            />
-          </div>
-          <div className="flex flex-col gap-2 px-1 py-3">
-            <p className="text-xl text-richblack-5">{course?.courseName}</p>
-            <p className="text-sm text-richblack-50">
-              {course?.instructor?.firstName} {course?.instructor?.lastName}
-            </p>
-            <div className="flex items-center gap-2">
-              <span className="text-yellow-5">{avgReviewCount || 0}</span>
 
-              <RatingStars Review_Count={avgReviewCount} />
-              <span className="text-richblack-400">
-                {course?.ratingAndReviews?.length} Ratings
-              </span>
-            </div>
-            <p className="text-xl text-richblack-5">Rs. {course?.price}</p>
-          </div>
+  return (
+    <Link to={`/courses/${course._id}`}>
+      <div className="group overflow-hidden rounded-xl bg-richblack-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+        
+        {/* Thumbnail */}
+        <div className="overflow-hidden rounded-t-xl">
+          <img
+            src={course?.thumbnail}
+            alt="Course Thumbnail"
+            className={`${Height} w-full object-cover transition-transform duration-500 group-hover:scale-105`}
+          />
         </div>
-      </Link>
-    </>
+
+        {/* Content */}
+        <div className="flex flex-col gap-3 p-4">
+          {/* Course Name */}
+          <h3 className="line-clamp-2 text-lg font-semibold text-richblack-5">
+            {course?.courseName}
+          </h3>
+
+          {/* Instructor */}
+          <p className="text-sm text-richblack-300">
+            {course?.instructor?.firstName}{" "}
+            {course?.instructor?.lastName}
+          </p>
+
+          {/* Rating */}
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-yellow-50">
+              {avgReviewCount || 0}
+            </span>
+
+            <RatingStars Review_Count={avgReviewCount} />
+
+            <span className="text-sm text-richblack-400">
+              ({course?.ratingAndReviews?.length})
+            </span>
+          </div>
+
+          {/* Price */}
+          <p className="mt-1 text-2xl font-bold text-yellow-50">
+            ₹ {course?.price}
+          </p>
+        </div>
+      </div>
+    </Link>
   )
 }
 

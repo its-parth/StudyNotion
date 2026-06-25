@@ -59,7 +59,7 @@ function Catalog() {
   return (
     <div className="flex-col w-full">
       {/* Hero Section */}
-      <div className=" box-content bg-richblack-800 px-15 lg:px-20 xl:px-30">
+      <div className="bg-richblack-800 px-15 lg:px-20 xl:px-30">
         <div className="mx-auto flex min-h-65 flex-col justify-center gap-4">
           <p className="text-sm text-richblack-300">
             {`Home / Catalog / `}
@@ -77,7 +77,7 @@ function Catalog() {
       </div>
 
       {/* Section 1 */}
-      <div className=" mx-auto box-content w-full max-w-maxContentTab px-8 py-12 lg:max-w-maxContent">
+      <div className=" mx-auto w-full max-w-maxContentTab px-8 py-12 lg:max-w-maxContent">
         <div className="section_heading">Courses to get you started</div>
         <div className="my-4 flex border-b border-b-richblack-600 text-sm">
           <p
@@ -101,18 +101,18 @@ function Catalog() {
             New
           </p>
         </div>
-        <div>
+        <div className="pt-3">
           <CourseSlider
             Courses={catalogPageData?.data?.selectedCategory?.courses}
           />
         </div>
       </div>
       {/* Section 2 */}
-      <div className=" mx-auto box-content w-full max-w-maxContentTab px-8 py-12 lg:max-w-maxContent">
+      <div className=" mx-auto w-full max-w-maxContentTab px-8 py-12 lg:max-w-maxContent">
         <div className="section_heading">
           Our Top Courses
         </div>
-        <div className="py-8">
+        <div className="pt-4">
             <CourseSlider
             Courses={catalogPageData?.data?.mostSellingCourses}
           />
@@ -121,9 +121,9 @@ function Catalog() {
       </div>
 
       {/* Section 3 */}
-      <div className=" mx-auto box-content w-full max-w-maxContentTab px-8 py-12 lg:max-w-maxContent">
+      <div className=" mx-auto w-full max-w-maxContentTab px-8 py-12 lg:max-w-maxContent">
         <div className="section_heading">Related Courses</div>
-        <div>
+        <div className="pt-4">
             <CourseSlider
             Courses={catalogPageData?.data?.differentCategory}
           />
