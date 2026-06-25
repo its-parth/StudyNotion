@@ -19,6 +19,7 @@ import MyProfile from './components/core/Dashboard/MyProfile'
 import Error from './pages/Error'
 import Settings from './components/core/Dashboard/Setting/Settings'
 import OpenRoute from './components/core/Authentication/OpenRoute'
+import EnrolledCourses from './components/core/Dashboard/EnrolledCourses'
 import PrivateRoute from './components/core/Authentication/PrivateRoute'
 import { useDispatch, useSelector } from 'react-redux'
 import { ACCOUNT_TYPE } from './utils/constants'
@@ -108,11 +109,11 @@ function App() {
             {/* Route only for Students */}
             {user?.accountType === ACCOUNT_TYPE.STUDENT && (
               <>
-                {/* <Route
+                <Route
                   path="enrolled-courses"
                   element={<EnrolledCourses />}
                 />
-                <Route path="/cart" element={<Cart />} /> */}
+                {/* <Route path="/cart" element={<Cart />} /> */}
               </>
             )}
             {/* Route only for Instructors */}

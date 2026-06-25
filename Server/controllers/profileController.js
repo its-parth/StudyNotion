@@ -3,6 +3,7 @@ const RatingAndReview = require('../models/RatingAndReview');
 const { uploadFileToCloudinary } = require('../utils/cloudinaryUpload');
 const Course = require('../models/Course');
 const User = require('../models/User');
+const CourseProgress = require('../models/CourseProgress')
 
 exports.updateProfile = async (req, res) => {
     try {
@@ -182,20 +183,16 @@ exports.getUserAllDetails = async (req, res) => {
 exports.getEnrolledCourses = async (req, res) => {
     try {
         const user = await User.findById(req.user.id)
-        .select("-password")
         .populate({
             path: "courses",
-            select: "courseName thumbnail courseContent",
             populate: {
                 path: "courseContent",
-                select: "sectionName subSections",
                 populate: {
                     path: "subSections",
-                    select: "title timeDuration"
                 }
             }
         })
-        .lean();
+        .exec();
 
         if(!user) {
             return res.status(404).json({
@@ -204,12 +201,50 @@ exports.getEnrolledCourses = async (req, res) => {
             });
         }
 
-        const courses = user.courses;
+        var userDetails = user.toObject();
+
+        const allProgress = await CourseProgress.find({
+            userId: user._id
+        });
+
+        const progressMap = new Map();
+
+        for(const progress of allProgress) {
+            progressMap.set(
+                progress.courseId.toString(),
+                progress
+            );
+        }
+
+        let totalSubSectionsLength = 0
+        for (let course = 0; course < userDetails.courses.length; course++) {
+            const currentCourse = userDetails.courses[course];
+            let totalDurationInSeconds = 0
+            totalSubSectionsLength = 0
+            for (let section = 0; section < currentCourse.courseContent.length; section++) {
+                totalDurationInSeconds += currentCourse.courseContent[section].subSections.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
+                currentCourse.totalDuration = totalDurationInSeconds
+                totalSubSectionsLength +=
+                currentCourse.courseContent[section].subSections.length
+            }
+            let courseProgress = progressMap.get(currentCourse._id.toString());
+            const courseProgressCount = courseProgress?.completedVideos.length
+            if (totalSubSectionsLength === 0) {
+                currentCourse.progressPercentage = 100
+            } else {
+                // To make it up to 2 decimal point
+                const multiplier = Math.pow(10, 2)
+                currentCourse.progressPercentage =
+                Math.round(
+                    (courseProgressCount / totalSubSectionsLength) * 100 * multiplier
+                ) / multiplier
+            }
+        }
 
         return res.status(200).json({
             success: true,
             message: 'Enrolled courses fetch successfully!',
-            data: courses,
+            data: userDetails.courses,
         });
 
     }catch(err) {
