@@ -25,6 +25,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ACCOUNT_TYPE } from './utils/constants'
 import { getUserDetails } from './services/operations/profileAPI'
 import CourseDetails from './pages/CourseDetails'
+import ViewCourse from './pages/ViewCourse'
+import VideoDetails from './components/core/ViewCourse/VideoDetails'
+
 
 // todo create open route and private route 
 function App() {
@@ -128,6 +131,19 @@ function App() {
                   path="edit-course/:courseId"
                   element={<PrivateRoute><EditCourse /></PrivateRoute>}
                 />
+              </>
+            )}
+          </Route>
+
+          <Route path='/view-course' element={
+            <PrivateRoute>
+              <ViewCourse />
+            </PrivateRoute>
+          }
+          >
+            {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+              <>
+                <Route path=':courseId/section/:sectionId/sub-section/:subSectionId' element={<VideoDetails />} />
               </>
             )}
           </Route>

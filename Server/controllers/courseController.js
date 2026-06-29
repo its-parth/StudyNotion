@@ -304,9 +304,10 @@ exports.deleteCourse = async (req, res) => {
 
 exports.getFullCourseDetails = async (req, res) => {
   try {
+    // todo find is there a security breach that user who don't buy course also can access a course content using view-course path from frontend
     const { courseId } = req.body
     const userId = req.user.id
-    const courseDetails = await Course.findOne({
+    var courseDetails = await Course.findOne({
       _id: courseId,
     })
       .populate({
@@ -326,7 +327,7 @@ exports.getFullCourseDetails = async (req, res) => {
       .exec()
 
     let courseProgressCount = await CourseProgress.findOne({
-      courseID: courseId,
+      courseId: courseId,
       userId: userId,
     })
 
@@ -339,28 +340,33 @@ exports.getFullCourseDetails = async (req, res) => {
       })
     }
 
-    // if (courseDetails.status === "Draft") {
-    //   return res.status(403).json({
-    //     success: false,
-    //     message: `Accessing a draft course is forbidden`,
-    //   });
-    // }
+    if (req.user.accountType === "Student" && courseDetails.status === "Draft") {
+      return res.status(403).json({
+        success: false,
+        message: `Accessing a draft course is forbidden`,
+      });
+    }
 
-    let totalDurationInSeconds = 0
-    courseDetails.courseContent.forEach((content) => {
-      content.subSections.forEach((subSection) => {
+    var totalDurationInSeconds = 0
+    var lectures = 0
+    courseDetails.courseContent.forEach((section) => {
+      section.subSections.forEach((subSection) => {
+        lectures++;
         const timeDurationInSeconds = parseInt(subSection.timeDuration)
         totalDurationInSeconds += timeDurationInSeconds
       })
     })
 
-    const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+    courseDetails = courseDetails.toObject();
+    courseDetails.totalNoOfLectures = lectures;
+
+    // const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
 
     return res.status(200).json({
       success: true,
       data: {
         courseDetails,
-        totalDuration,
+        totalDuration:totalDurationInSeconds,
         completedVideos: courseProgressCount?.completedVideos
           ? courseProgressCount?.completedVideos
           : [],
