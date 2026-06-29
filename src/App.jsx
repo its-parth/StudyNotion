@@ -89,7 +89,7 @@ function App() {
             </OpenRoute>
           }
         />
-        // todo create InstructorRoute like PrivateRoute
+        {/* todo create InstructorRoute like PrivateRoute */}
             {/* <Route
             path="add-course"
             element={

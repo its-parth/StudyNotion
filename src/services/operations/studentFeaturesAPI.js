@@ -1,5 +1,4 @@
 import { toast } from "react-toastify"
-import rzpLogo from "../../assets/Logo/rzp_logo.png"
 import { apiConnector } from "../apiConnector"
 import { studentEndpoints } from "../apis"
 import { resetCart } from "../../redux/slices/cartSlice"
@@ -65,13 +64,13 @@ export async function BuyCourse(
 
     // Opening the Razorpay SDK
     const options = {
-      key: process.env.RAZORPAY_KEY,
+      key: import.meta.env.VITE_RAZORPAY_KEY,
       currency: orderResponse.data.data.currency,
       amount: `${orderResponse.data.data.amount}`,
       order_id: orderResponse.data.data.id,
       name: "StudyNotion",
       description: "Thank you for Purchasing the Course.",
-      image: rzpLogo,
+      image: "/rzp_logo.png",
       prefill: {
         name: `${user_details.firstName} ${user_details.lastName}`,
         email: user_details.email,

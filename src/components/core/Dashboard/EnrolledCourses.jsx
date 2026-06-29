@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import ProgressBar from "@ramonak/react-progress-bar"
+import ProgressBar from '../../common/ProgressBar.jsx'
 import { BiDotsVerticalRounded } from "react-icons/bi"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-
+import Loader from '../../common/Loader.jsx'
+import { formatDuration } from '../../../utils/formatDuration.js'
 import { getUserEnrolledCourses } from "../../../services/operations/profileAPI"
 
 export default function EnrolledCourses() {
@@ -36,8 +37,8 @@ export default function EnrolledCourses() {
         <>
             <div className="text-3xl text-richblack-50">Enrolled Courses</div>
             {!enrolledCourses ? (
-                <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-                    <div className="spinner"></div>
+                <div className="grid place-items-center">
+                    <Loader />
                 </div>
             ) : !enrolledCourses.length ? (
                 <div className="mt-5 flex min-h-[40vh] flex-col items-center justify-center gap-3 rounded-lg border border-richblack-700 bg-richblack-800 p-8">
@@ -60,8 +61,10 @@ export default function EnrolledCourses() {
                         <p className="flex-1 px-2 py-3">Progress</p>
                     </div>
                     {/* Course Names */}
-                    {enrolledCourses.map((course, i, arr) => (
-                        <div
+                    {enrolledCourses.map((course, i, arr) => {
+                        console.log("course progress percentage: ", course.progressPercentage);
+                        console.log("progress bar: ", ProgressBar)
+                        return <div
                             className={`flex items-center border border-richblack-700 ${i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"
                                 }`}
                             key={i}
@@ -70,7 +73,7 @@ export default function EnrolledCourses() {
                                 className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
                                 onClick={() => {
                                     navigate(
-                                        `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
+                                        `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSections?.[0]?._id}`
                                     )
                                 }}
                             >
@@ -88,17 +91,13 @@ export default function EnrolledCourses() {
                                     </p>
                                 </div>
                             </div>
-                            <div className="w-1/4 px-2 py-3">{course?.totalDuration}</div>
+                            <div className="w-1/4 px-2 py-3">{formatDuration(course?.totalDuration)}</div>
                             <div className="flex w-1/5 flex-col gap-2 px-2 py-3">
                                 <p>Progress: {course.progressPercentage || 0}%</p>
-                                <ProgressBar
-                                    completed={course.progressPercentage || 0}
-                                    height="8px"
-                                    isLabelVisible={false}
-                                />
+                                <ProgressBar value={course.progressPercentage} />
                             </div>
                         </div>
-                    ))}
+                })}
                 </div>
             )}
         </>

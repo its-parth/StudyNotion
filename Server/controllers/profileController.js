@@ -210,6 +210,7 @@ exports.getEnrolledCourses = async (req, res) => {
         const progressMap = new Map();
 
         for(const progress of allProgress) {
+            console.log("Progress in enrolledCourses: ", progress);
             progressMap.set(
                 progress.courseId.toString(),
                 progress

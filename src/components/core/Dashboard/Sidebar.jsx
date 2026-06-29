@@ -18,7 +18,6 @@ const Sidebar = () => {
     const [confirmationModal, setConfirmationModal] = useState(null);
     const location = useLocation();
     const navigate = useNavigate();
-    console.log(confirmationModal)
 
     if (profileLoading || authLoading) {
     return (

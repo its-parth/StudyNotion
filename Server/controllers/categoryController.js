@@ -95,8 +95,8 @@ exports.getCategoryPageDetails = async (req, res) => {
             populate: "additionalDetails"
         })
         .limit(10);
-        console.log("category details: ", categoryDetails);
-        console.log("different courses: ", differentCourses);
+        // console.log("category details: ", categoryDetails);
+        // console.log("different courses: ", differentCourses);
 
         // get top 10 selling courses
         // Todo practice mongo db queries

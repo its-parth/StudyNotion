@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { connectDB } = require('./config/database');
 const cookieparser = require('cookie-parser');
@@ -6,10 +7,10 @@ const fileupload = require('express-fileupload');
 const userRoutes = require('./routes/userRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const courseRoutes = require('./routes/courseRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 const cors = require('cors');
 
 const app = express();
-require('dotenv').config();
 
 const PORT = process.env.PORT;
 
@@ -37,6 +38,7 @@ cloudinaryConnect();
 app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/course', courseRoutes);
 app.use('/api/v1/profile', profileRoutes);
+app.use('/api/v1/payment', paymentRoutes);
 
 
 app.get('/', (req, res) => {
