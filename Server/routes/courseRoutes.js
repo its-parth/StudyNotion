@@ -11,6 +11,8 @@ const { createSection, updateSection, deleteSection } = require('../controllers/
 
 const { createSubSection, updateSubSection, deleteSubSection } = require('../controllers/subSectionController');
 
+const { updateCourseProgress } = require('../controllers/CourseProgress')
+
 // importing middlewares
 const { isAuth, isInstructor, isStudent, isAdmin } = require('../middlewares/auth');
 
@@ -42,7 +44,7 @@ router.post("/getCourseDetails", getCourseDetails)
 // Get Details for a Specific Courses
 router.post("/getFullCourseDetails", isAuth, getFullCourseDetails)
 // To Update Course Progress
-// router.post("/updateCourseProgress", isAuth, isStudent, updateCourseProgress)
+router.post("/updateCourseProgress", isAuth, isStudent, updateCourseProgress)
 // To get Course Progress
 // router.post("/getProgressPercentage", isAuth, isStudent, getProgressPercentage)
 // Delete a Course
