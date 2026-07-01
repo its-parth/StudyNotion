@@ -22,4 +22,4 @@ const ratingAndReviewSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model("RatingAndReview", ratingAndReviewSchema);
+module.exports = mongoose.models.RatingAndReview || mongoose.model("RatingAndReview", ratingAndReviewSchema);

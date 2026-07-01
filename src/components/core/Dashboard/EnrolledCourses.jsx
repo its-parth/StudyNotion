@@ -62,8 +62,6 @@ export default function EnrolledCourses() {
                     </div>
                     {/* Course Names */}
                     {enrolledCourses.map((course, i, arr) => {
-                        console.log("course progress percentage: ", course.progressPercentage);
-                        console.log("progress bar: ", ProgressBar)
                         return <div
                             className={`flex items-center border border-richblack-700 ${i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"
                                 }`}
