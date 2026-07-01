@@ -117,7 +117,7 @@ const Home = () => {
       {/* Section 3 */}
       <div className='w-11/12 max-w-maxContent flex flex-col items-center'>
         <InstructorSection />
-        {/* <RatingAndReview /> */}
+        <RatingAndReview />
       </div>
       {/* Section 4 */}
       <Footer />

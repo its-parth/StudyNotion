@@ -139,7 +139,7 @@ exports.getAverageRating = async (req, res) => {
         });
     }
 }
-
+ 
 
 exports.getAllRatingsAndReviews = async (req, res) => {
     try {
